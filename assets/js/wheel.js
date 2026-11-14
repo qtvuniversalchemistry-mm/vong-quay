@@ -26,9 +26,25 @@
     { id: "shirt", icon: "👕", title: "Hôm nay mặc áo màu gì?", label: "Chọn màu áo", color: "#e08a00",
       items: ["Trắng", "Đen", "Xanh dương", "Xanh lá", "Đỏ", "Vàng", "Hồng", "Xám", "Be", "Tím", "Cam", "Xanh navy"] },
     { id: "boy", icon: "👦", title: "Đặt tên con trai", label: "Đặt tên con trai", color: "#1d5fa6",
-      items: ["Minh Khang", "Gia Bảo", "Đức Anh", "Hoàng Nam", "Quốc Bảo", "Minh Quân", "Anh Khoa", "Tuấn Kiệt", "Phúc An", "Bảo Long", "Đăng Khoa", "Nhật Minh"] },
+      // Nguồn tham khảo: drpapie.com.vn/ten-cho-be-trai (chọn lọc theo nhóm ý nghĩa)
+      items: [
+        "Duy Anh", "Đức Anh", "Minh Anh", "Nhật Anh", "Tuấn Anh", "Việt Anh", "Anh Khoa", "Đăng Khoa", "Bách Khoa", "Minh Khôi",
+        "Đăng Khôi", "Nguyên Khôi", "Nhật Minh", "Quang Minh", "Bảo Minh", "Tuấn Kiệt", "Gia Kiệt", "Anh Kiệt", "Minh Trí", "Minh Tuệ",
+        "Mạnh Cường", "Quốc Cường", "Hùng Cường", "Tiến Dũng", "Anh Dũng", "Trung Kiên", "Duy Kiên", "Đức Mạnh", "Tiến Mạnh", "Minh Chí",
+        "Minh Đức", "Trung Đức", "Minh Hiếu", "Trung Hiếu", "Thiện Nhân", "Trọng Nghĩa", "Minh Quân", "Anh Quân", "Hoàng Quân", "Quang Trung",
+        "Gia Bảo", "Thiên Bảo", "Huy Hoàng", "Nhật Hoàng", "Quốc Hưng", "Gia Khánh", "Duy Khánh", "Phúc Lộc", "Minh Thành", "Tiến Thành",
+        "Bảo An", "Bình An", "Thiên An", "An Khang", "Minh Khang", "Gia Khang", "Hoàng Phúc", "Hồng Phúc", "Đức Phúc", "Thái Bình"
+      ] },
     { id: "girl", icon: "👧", title: "Đặt tên con gái", label: "Đặt tên con gái", color: "#e0457b",
-      items: ["Bảo Ngọc", "Khánh Linh", "Minh Anh", "Ngọc Hân", "Phương Thảo", "Gia Hân", "An Nhiên", "Thảo Vy", "Tuệ Nhi", "Mai Anh", "Diệp Chi", "Hà My"] },
+      // Nguồn tham khảo: huggies.com.vn – Tên hay cho bé gái 2026 (chọn lọc)
+      items: [
+        "Minh Anh", "Gia Hân", "Ngọc Hân", "Khánh Vy", "Tường Vy", "Bảo Ngọc", "Minh Châu", "Thiên An", "An Nhiên", "Khánh An",
+        "Diệu Linh", "Khánh Linh", "Thùy Linh", "Tuệ Linh", "Gia Linh", "Mỹ Linh", "Tuệ Nhi", "Thảo Nhi", "Bảo Nhi", "An Nhi",
+        "Ngọc Nhi", "Uyển Nhi", "Phương Anh", "Quỳnh Anh", "Bảo Anh", "Mai Anh", "Vân Anh", "Tú Anh", "Ngọc Anh", "Phương Thảo",
+        "Thanh Thảo", "Thu Thảo", "Mỹ Duyên", "Thục Quyên", "Ngọc Lan", "Ngọc Trâm", "Huyền Trâm", "Bích Ngọc", "Khánh Ngọc", "Thiên Kim",
+        "Kim Ngân", "Hoàng Yến", "Hải Yến", "Nhật Hạ", "Thanh Hà", "Minh Hà", "Thu Thủy", "Thùy Dương", "Thanh Mai", "Xuân Mai",
+        "Mai Phương", "Nhã Phương", "Lan Phương", "Tú Uyên", "Nhã Uyên", "Diệp Chi", "Quỳnh Chi", "Hồng Nhung", "Hà My", "Diễm My"
+      ] },
     { id: "luckymoney", icon: "🧧", title: "Lì xì năm mới", label: "Lì xì năm mới", color: "#e5484d",
       items: ["10.000đ", "20.000đ", "50.000đ", "100.000đ", "200.000đ", "500.000đ", "Thêm 1 lượt quay", "Chúc may mắn lần sau"] },
     { id: "voucher", icon: "🎟️", title: "Vòng quay voucher", label: "Tặng voucher", color: "#00a3b8",
