@@ -15,7 +15,7 @@ Website tĩnh (HTML/CSS/JS thuần, không cần cài đặt, không cần máy 
 - Lịch sử kết quả: sao chép, tải file CSV mở được bằng Excel (giữ đúng tiếng Việt), xóa lịch sử.
 - Cài đặt: tiêu đề vòng quay, thời gian quay (2–20 giây), bảng màu, tự động xóa người trúng, bật/tắt âm thanh, pháo giấy.
 - Chế độ toàn màn hình (dùng khi livestream / trình chiếu), tương thích điện thoại.
-- Giao diện sáng (mặc định) và tối: nút **Sáng/Tối** trên thanh menu; lựa chọn được lưu trong trình duyệt và áp dụng cho mọi trang.
+- Giao diện sáng (mặc định) và tối: nút biểu tượng mặt trăng/mặt trời trên thanh menu; lựa chọn được lưu trong trình duyệt và áp dụng cho mọi trang.
 - Sao chép link chia sẻ: người nhận mở link sẽ thấy đúng danh sách và tiêu đề.
 - Dữ liệu tự lưu trong trình duyệt của người dùng (không gửi lên máy chủ).
 
@@ -44,7 +44,7 @@ Mở `assets/css/theme.css`. Màu hiện tại lấy theo logo MAINN Media: xanh
 | `--ink`, `--ink-soft` | Xanh navy đậm: nền tối, viền vòng quay, chân trang |
 | `--wheel-1` … `--wheel-6` | 6 màu các ô trên vòng quay (bảng màu "MAINN Media") |
 
-Logo nằm trong `assets/img/` (`logo-mainn-media.png` cho nền sáng, `logo-mainn-media-light.png` cho nền tối, `logo-m.png`, `favicon.png`).
+Logo nằm trong `assets/img/` (`logo-mainn-media.png` — giữ nguyên màu gốc ở cả giao diện sáng và tối, `logo-m.png`, `favicon.png`).
 
 ## Thêm công cụ mới
 

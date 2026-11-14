@@ -123,12 +123,11 @@
     host.innerHTML =
       '<div class="container site-header__inner">' +
       '<a class="brand" href="' + HOME + '" aria-label="MAINN Media - Trang chủ công cụ">' +
-      '<img class="brand__logo logo--on-light" src="' + BASE + 'assets/img/logo-mainn-media.png" alt="MAINN Media" width="371" height="96">' +
-      '<img class="brand__logo logo--on-dark" src="' + BASE + 'assets/img/logo-mainn-media-light.png" alt="MAINN Media" width="371" height="96">' +
+      '<img class="brand__logo" src="' + BASE + 'assets/img/logo-mainn-media.png" alt="MAINN Media" width="371" height="96">' +
       '<span class="brand__divider"></span><span class="brand__sub">Bộ công cụ<br>miễn phí</span></a>' +
       '<nav class="nav" aria-label="Điều hướng chính">' + links + "</nav>" +
       '<div class="header-actions">' +
-      '<button class="btn theme-toggle" type="button" data-theme-toggle></button>' +
+      '<button class="btn icon-btn theme-toggle" type="button" data-theme-toggle></button>' +
       '<a class="btn btn--dark btn--sm header-cta" href="https://mainnmedia.com" target="_blank" rel="noopener">mainnmedia.com ' + ICONS.external + "</a>" +
       "</div></div>";
 
@@ -136,7 +135,7 @@
     function paint() {
       var dark = currentTheme() === "dark";
       // Hiển thị giao diện sẽ chuyển sang khi bấm
-      toggle.innerHTML = (dark ? ICONS.sun : ICONS.moon) + '<span class="theme-toggle__label">' + (dark ? "Sáng" : "Tối") + "</span>";
+      toggle.innerHTML = dark ? ICONS.sun : ICONS.moon;
       toggle.setAttribute("aria-label", dark ? "Chuyển sang giao diện sáng" : "Chuyển sang giao diện tối");
       toggle.title = toggle.getAttribute("aria-label");
     }
@@ -158,8 +157,8 @@
     host.innerHTML =
       '<div class="site-footer__bar"></div>' +
       '<div class="container site-footer__inner">' +
-      '<div class="site-footer__brand"><img src="' + BASE + 'assets/img/logo-mainn-media-light.png" alt="MAINN Media" width="371" height="96">' +
-      '<div>Agency Marketing &amp; vận hành thương mại điện tử</div></div>' +
+      '<div class="site-footer__brand"><img src="' + BASE + 'assets/img/logo-mainn-media.png" alt="MAINN Media" width="371" height="96">' +
+      '<div>Chuyên gia marketing đồng hành cùng doanh nghiệp trên Facebook, TikTok, Shopee</div></div>' +
       "<div>© " + new Date().getFullYear() + ' MAINN Media · <a href="https://mainnmedia.com" target="_blank" rel="noopener">mainnmedia.com</a></div>' +
       "</div>";
   }
