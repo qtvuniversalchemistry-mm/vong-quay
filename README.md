@@ -11,7 +11,7 @@ Website tĩnh (HTML/CSS/JS thuần, không cần cài đặt, không cần máy 
 - Quay bằng nút QUAY, bấm vào vòng quay hoặc `Ctrl + Enter` (phím cách khi đang toàn màn hình).
 - Kết quả chọn bằng bộ sinh số ngẫu nhiên an toàn của trình duyệt (`crypto.getRandomValues`), mỗi mục có cơ hội như nhau.
 - Hộp thông báo người trúng: Quay tiếp / Xóa khỏi danh sách / Đóng; pháo giấy và âm thanh.
-- **Vòng quay mẫu** (phía trên ô danh sách): Danh sách tên, Sáng nay ăn gì?, Chọn màu áo, Đặt tên con trai, Đặt tên con gái, Lì xì năm mới, Tặng voucher, Tặng quà gì cho bạn gái?, Hoạt động cuối tuần. Bấm là đổi ngay tiêu đề + danh sách; nếu đang có danh sách tự nhập, trang sẽ hỏi xác nhận trước khi thay. Sửa/thêm mẫu trong mảng `TEMPLATES` ở `assets/js/wheel.js`.
+- **Vòng quay mẫu** (phía trên ô danh sách): Danh sách tên, Sáng nay ăn gì?, Trưa nay ăn gì?, Tối nay ăn gì?, Chọn màu áo, Đặt tên con trai, Đặt tên con gái, Lì xì năm mới, Tặng voucher, Tặng quà gì cho bạn gái?, Hoạt động cuối tuần. Bấm là đổi ngay tiêu đề + danh sách; nếu đang có danh sách tự nhập, trang sẽ hỏi xác nhận trước khi thay. Sửa/thêm mẫu trong mảng `TEMPLATES` ở `assets/js/wheel.js`.
 - Công cụ danh sách: Trộn, Sắp xếp A→Z, Xóa trùng, Nhập file `.txt`/`.csv`, Xóa hết.
 - Lịch sử kết quả: sao chép, tải file CSV mở được bằng Excel (giữ đúng tiếng Việt), xóa lịch sử.
 - Cài đặt: tiêu đề vòng quay, thời gian quay (2–20 giây), bảng màu, tự động xóa người trúng, bật/tắt âm thanh, pháo giấy.
