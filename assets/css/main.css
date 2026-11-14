@@ -317,6 +317,28 @@ a.tool-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); b
 
 .chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
 
+/* Vòng quay mẫu */
+.templates { display: flex; flex-direction: column; gap: 8px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+.template-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.template-chip {
+  --c: var(--brand);
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; border-radius: 999px; cursor: pointer;
+  font-size: 13px; font-weight: 700; line-height: 1.3;
+  border: 1px solid color-mix(in srgb, var(--c) 35%, transparent);
+  background: color-mix(in srgb, var(--c) 12%, var(--surface));
+  color: color-mix(in srgb, var(--c) 78%, var(--text));
+  transition: background 0.15s, color 0.15s, transform 0.1s, box-shadow 0.15s;
+}
+.template-chip:hover { background: color-mix(in srgb, var(--c) 22%, var(--surface)); }
+.template-chip:active { transform: translateY(1px); }
+.template-chip[aria-pressed="true"] {
+  background: var(--c); border-color: var(--c); color: #fff;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--c) 35%, transparent);
+}
+.template-chip:disabled { opacity: 0.5; cursor: not-allowed; }
+:root[data-theme="dark"] .template-chip:not([aria-pressed="true"]) { color: color-mix(in srgb, var(--c) 55%, #fff); }
+
 /* Danh sách kết quả */
 .results { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; max-height: 420px; overflow: auto; }
 .results li {

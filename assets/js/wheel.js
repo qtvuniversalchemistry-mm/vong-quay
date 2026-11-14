@@ -18,6 +18,27 @@
     "Đỗ Phương Nga", "Ngô Thanh Phong", "Dương Mỹ Quyên", "Lý Gia Tuấn"
   ];
 
+  // Vòng quay mẫu: hiển thị phía trên ô danh sách, bấm để thay tiêu đề + danh sách
+  var TEMPLATES = [
+    { id: "names", icon: "👥", title: "Vòng quay may mắn", label: "Danh sách tên", color: "#0099e5", items: SAMPLE },
+    { id: "breakfast", icon: "🍜", title: "Sáng nay ăn gì?", label: "Sáng nay ăn gì?", color: "#00a877",
+      items: ["Phở bò", "Bún chả", "Bánh mì", "Xôi xéo", "Bún bò Huế", "Bánh cuốn", "Cháo sườn", "Miến gà", "Hủ tiếu", "Cơm tấm", "Bún riêu", "Bánh bao"] },
+    { id: "shirt", icon: "👕", title: "Hôm nay mặc áo màu gì?", label: "Chọn màu áo", color: "#e08a00",
+      items: ["Trắng", "Đen", "Xanh dương", "Xanh lá", "Đỏ", "Vàng", "Hồng", "Xám", "Be", "Tím", "Cam", "Xanh navy"] },
+    { id: "boy", icon: "👦", title: "Đặt tên con trai", label: "Đặt tên con trai", color: "#1d5fa6",
+      items: ["Minh Khang", "Gia Bảo", "Đức Anh", "Hoàng Nam", "Quốc Bảo", "Minh Quân", "Anh Khoa", "Tuấn Kiệt", "Phúc An", "Bảo Long", "Đăng Khoa", "Nhật Minh"] },
+    { id: "girl", icon: "👧", title: "Đặt tên con gái", label: "Đặt tên con gái", color: "#e0457b",
+      items: ["Bảo Ngọc", "Khánh Linh", "Minh Anh", "Ngọc Hân", "Phương Thảo", "Gia Hân", "An Nhiên", "Thảo Vy", "Tuệ Nhi", "Mai Anh", "Diệp Chi", "Hà My"] },
+    { id: "luckymoney", icon: "🧧", title: "Lì xì năm mới", label: "Lì xì năm mới", color: "#e5484d",
+      items: ["10.000đ", "20.000đ", "50.000đ", "100.000đ", "200.000đ", "500.000đ", "Thêm 1 lượt quay", "Chúc may mắn lần sau"] },
+    { id: "voucher", icon: "🎟️", title: "Vòng quay voucher", label: "Tặng voucher", color: "#00a3b8",
+      items: ["Giảm 10%", "Giảm 20%", "Giảm 30%", "Giảm 50%", "Freeship", "Mua 1 tặng 1", "Quà tặng kèm", "Chúc may mắn lần sau"] },
+    { id: "gift", icon: "🎁", title: "Tặng quà gì cho bạn gái?", label: "Tặng quà gì cho bạn gái?", color: "#7c5cff",
+      items: ["Hoa tươi", "Son môi", "Nước hoa", "Gấu bông", "Túi xách", "Đồng hồ", "Trang sức", "Sô-cô-la", "Váy đầm", "Bữa tối lãng mạn", "Album ảnh kỷ niệm", "Chuyến du lịch ngắn"] },
+    { id: "weekend", icon: "🏕️", title: "Cuối tuần này làm gì?", label: "Hoạt động cuối tuần", color: "#00b884",
+      items: ["Đi cà phê", "Xem phim", "Đi picnic", "Leo núi", "Đi bơi", "Nấu ăn ở nhà", "Đọc sách", "Chơi board game", "Đi karaoke", "Dọn dẹp nhà cửa", "Về thăm gia đình", "Ngủ nướng"] }
+  ];
+
   // "brand" đọc màu từ assets/css/theme.css (--wheel-1 ... --wheel-6)
   var PALETTES = [
     { id: "brand", name: "MAINN Media", colors: null },
@@ -42,7 +63,7 @@
     title: $("wheelTitle"), spin: $("btnSpin"), spin2: $("btnSpin2"), share: $("btnShare"), fullscreen: $("btnFullscreen"),
     entries: $("entries"), entryCount: $("entryCount"), entryHint: $("entryHint"),
     shuffle: $("btnShuffle"), sort: $("btnSort"), dedupe: $("btnDedupe"), importBtn: $("btnImport"),
-    sample: $("btnSample"), clear: $("btnClear"), file: $("fileInput"),
+    templateRow: $("templateRow"), clear: $("btnClear"), file: $("fileInput"),
     results: $("results"), resultCount: $("resultCount"),
     copyResults: $("btnCopyResults"), exportResults: $("btnExportResults"), clearResults: $("btnClearResults"),
     setTitle: $("setTitle"), setDuration: $("setDuration"), durationOut: $("durationOut"),
@@ -120,6 +141,7 @@
   function onEntriesChanged() {
     state.text = el.entries.value;
     parseItems();
+    renderTemplates();
     buildWheel();
     render();
     save();
@@ -371,7 +393,8 @@
     spinning = on;
     el.spin.disabled = on; el.spin2.disabled = on;
     el.entries.disabled = on;
-    [el.shuffle, el.sort, el.dedupe, el.importBtn, el.sample, el.clear].forEach(function (b) { b.disabled = on; });
+    [el.shuffle, el.sort, el.dedupe, el.importBtn, el.clear].forEach(function (b) { b.disabled = on; });
+    Array.prototype.forEach.call(el.templateRow.querySelectorAll("button"), function (b) { b.disabled = on; });
   }
 
   function finish(winner) {
@@ -556,6 +579,30 @@
     return c;
   }
 
+  /* ---------- Vòng quay mẫu ---------- */
+  function templateText(t) { return t.items.join("\n"); }
+
+  function renderTemplates() {
+    var current = currentLabels().join("\n");
+    el.templateRow.innerHTML = TEMPLATES.map(function (t) {
+      return '<button type="button" class="template-chip" data-tpl="' + t.id + '" style="--c:' + t.color + '" aria-pressed="' +
+        (templateText(t) === current) + '"><span aria-hidden="true">' + t.icon + "</span>" + M.esc(t.label) + "</button>";
+    }).join("");
+  }
+
+  function applyTemplate(id) {
+    var t = TEMPLATES.filter(function (x) { return x.id === id; })[0];
+    if (!t) return;
+    var current = currentLabels().join("\n");
+    var isTemplate = !current || TEMPLATES.some(function (x) { return templateText(x) === current; });
+    if (!isTemplate && !confirm("Thay danh sách hiện tại (" + items.length + " mục) bằng vòng quay mẫu \"" + t.label + "\"?")) return;
+    state.title = t.title;
+    el.title.textContent = t.title;
+    el.setTitle.value = t.title;
+    setText(templateText(t));
+    M.toast("Đã chọn vòng quay mẫu: " + t.label);
+  }
+
   function applySettingsToUI() {
     var s = state.settings;
     el.title.textContent = state.title || "Vòng quay may mắn";
@@ -618,9 +665,10 @@
       var removed = before - ls.length;
       M.toast(removed ? "Đã xóa " + removed + " dòng trùng" : "Không có dòng trùng");
     });
-    el.sample.addEventListener("click", function () {
-      if (items.length && !confirm("Thay danh sách hiện tại bằng danh sách mẫu?")) return;
-      setText(SAMPLE.join("\n"));
+    el.templateRow.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-tpl]");
+      if (!b || spinning) return;
+      applyTemplate(b.getAttribute("data-tpl"));
     });
     el.clear.addEventListener("click", function () {
       if (!items.length) return;
@@ -717,6 +765,7 @@
   var fromLink = loadFromHash();
   el.entries.value = state.text;
   parseItems();
+  renderTemplates();
   applySettingsToUI();
   renderResults();
   initTabs();

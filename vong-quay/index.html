@@ -71,6 +71,13 @@
 
         <!-- Tab danh sách -->
         <div class="tab-panel" role="tabpanel" id="panel-list" aria-labelledby="tab-list">
+          <div class="templates">
+            <div class="panel-row">
+              <span class="panel-label">Vòng quay mẫu</span>
+              <span class="muted">Bấm để dùng ngay</span>
+            </div>
+            <div class="template-row" id="templateRow" role="group" aria-label="Vòng quay mẫu"></div>
+          </div>
           <div class="panel-row">
             <label class="panel-label" for="entries">Mỗi dòng một mục</label>
             <span class="muted" id="entryHint"></span>
@@ -89,7 +96,6 @@
             <button class="btn btn--sm" type="button" id="btnImport" title="Nhập từ file .txt hoặc .csv">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Nhập file
             </button>
-            <button class="btn btn--sm" type="button" id="btnSample" title="Điền danh sách mẫu">Mẫu</button>
             <button class="btn btn--sm btn--ghost" type="button" id="btnClear" title="Xóa toàn bộ danh sách">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>Xóa hết
             </button>
