@@ -13,6 +13,16 @@
   var BASE = new URL("../../", script.src).href;
 
   var ICONS = {
+    image:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="m21 15-4.5-4.5L6 21"/></svg>',
+    pdf:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h2.5a1.5 1.5 0 0 1 0 3H8v-5M14 16v-5h1.5a2.5 2.5 0 0 1 0 5z"/></svg>',
+    video:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="m17 10 5-3v10l-5-3"/></svg>',
+    doc:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>',
+    menu:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
     wheel:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><path d="M12 3v7M12 14v7M3 12h7M14 12h7M5.6 5.6l5 5M13.4 13.4l5 5M18.4 5.6l-5 5M10.6 13.4l-5 5"/></svg>',
     users:
@@ -36,6 +46,40 @@
       href: "vong-quay/",
       icon: "wheel",
       status: "live"
+    },
+    {
+      id: "chuyen-doi-anh",
+      name: "Chuyển đổi & nén ảnh",
+      nav: "Nén ảnh",
+      desc: "Đổi định dạng JPG, PNG, WebP và giảm dung lượng ảnh hàng loạt, tải về từng ảnh hoặc file .zip.",
+      href: "chuyen-doi-anh/",
+      icon: "image",
+      status: "live"
+    },
+    {
+      id: "anh-sang-pdf",
+      name: "Ảnh sang PDF",
+      nav: "Ảnh → PDF",
+      desc: "Ghép nhiều ảnh thành một file PDF, sắp xếp thứ tự trang, chọn khổ giấy A4 và lề.",
+      href: "anh-sang-pdf/",
+      icon: "pdf",
+      status: "live"
+    },
+    {
+      id: "chuyen-doi-video",
+      name: "Chuyển đổi & nén video",
+      nav: "Video",
+      desc: "Giảm dung lượng video, đổi sang MP4, WebM, MOV, hạ độ phân giải — xử lý ngay trên trình duyệt.",
+      href: "chuyen-doi-video/",
+      icon: "video",
+      status: "live"
+    },
+    {
+      id: "word-sang-pdf",
+      name: "Word sang PDF",
+      desc: "Chuyển file Word (.docx) sang PDF.",
+      icon: "doc",
+      status: "soon"
     },
     {
       id: "chia-nhom",
@@ -128,8 +172,20 @@
       '<nav class="nav" aria-label="Điều hướng chính">' + links + "</nav>" +
       '<div class="header-actions">' +
       '<button class="btn icon-btn theme-toggle" type="button" data-theme-toggle></button>' +
+      '<button class="btn icon-btn menu-btn" type="button" data-menu-toggle aria-label="Mở menu công cụ" aria-expanded="false">' + ICONS.menu + "</button>" +
       '<a class="btn btn--dark btn--sm header-cta" href="https://mainnmedia.com" target="_blank" rel="noopener">mainnmedia.com ' + ICONS.external + "</a>" +
       "</div></div>";
+
+    var menuBtn = host.querySelector("[data-menu-toggle]"), nav = host.querySelector(".nav");
+    menuBtn.addEventListener("click", function () {
+      var open = nav.classList.toggle("is-open");
+      menuBtn.setAttribute("aria-expanded", open);
+    });
+    document.addEventListener("click", function (e) {
+      if (nav.classList.contains("is-open") && !host.contains(e.target)) {
+        nav.classList.remove("is-open"); menuBtn.setAttribute("aria-expanded", "false");
+      }
+    });
 
     var toggle = host.querySelector("[data-theme-toggle]");
     function paint() {

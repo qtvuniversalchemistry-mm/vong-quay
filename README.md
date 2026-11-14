@@ -4,6 +4,11 @@ Website tĩnh (HTML/CSS/JS thuần, không cần cài đặt, không cần máy 
 
 - **Trang chủ** (`home/`): giới thiệu và danh sách công cụ. Địa chỉ gốc `/` tự chuyển đến `/home/`.
 - **Vòng quay may mắn** (`vong-quay/`): nhập danh sách, quay ngẫu nhiên, xem lịch sử kết quả.
+- **Chuyển đổi & nén ảnh** (`chuyen-doi-anh/`): đổi JPG/PNG/WebP, chỉnh chất lượng, thu nhỏ kích thước, xử lý hàng loạt, tải .zip.
+- **Ảnh sang PDF** (`anh-sang-pdf/`): ghép nhiều ảnh thành PDF, kéo thả sắp xếp trang, khổ A4/Letter/vừa ảnh, lề, mức dung lượng.
+- **Chuyển đổi & nén video** (`chuyen-doi-video/`): nén dung lượng, đổi MP4/WebM/MOV, hạ độ phân giải, bỏ âm thanh. Cần Chrome/Edge bản mới (dùng WebCodecs).
+
+Tất cả công cụ xử lý file đều chạy **ngay trong trình duyệt**, file không được tải lên máy chủ. Thư viện bên thứ ba nằm trong `assets/vendor/` (xem `assets/vendor/LICENSES.md`).
 
 ## Tính năng vòng quay
 
@@ -68,5 +73,8 @@ assets/css/theme.css    Màu thương hiệu, giao diện sáng/tối (sửa ở
 assets/css/main.css     Giao diện chung
 assets/js/site.js       Header, footer, danh sách công cụ, nút Sáng/Tối
 assets/js/wheel.js      Logic vòng quay
+assets/js/filekit.js    Hàm dùng chung cho công cụ file (kéo thả, tải về, nén zip)
+assets/js/tool-*.js     Logic từng công cụ ảnh / PDF / video
+assets/vendor/          Thư viện pdf-lib, fflate, Mediabunny
 assets/img/             Logo, favicon
 ```

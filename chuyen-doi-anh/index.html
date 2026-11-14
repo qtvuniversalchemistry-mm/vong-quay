@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Chuyển đổi & nén ảnh online | MAINN Media</title>
+  <meta name="description" content="Đổi định dạng ảnh JPG, PNG, WebP và giảm dung lượng ảnh hàng loạt miễn phí. Xử lý ngay trên trình duyệt, ảnh không tải lên máy chủ.">
+  <meta name="theme-color" content="#0a2540">
+  <meta property="og:title" content="Chuyển đổi & nén ảnh | MAINN Media">
+  <meta property="og:description" content="Đổi định dạng và giảm dung lượng ảnh hàng loạt, miễn phí, không tải ảnh lên máy chủ.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="../assets/img/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/site.js"></script>
+</head>
+<body data-page="chuyen-doi-anh">
+  <header data-site-header></header>
+
+  <main class="container">
+    <div class="tool-head">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../home/">Trang chủ</a><span>/</span><span>Chuyển đổi &amp; nén ảnh</span></nav>
+      <h1>Chuyển đổi &amp; nén ảnh</h1>
+      <p>Đổi định dạng JPG, PNG, WebP và giảm dung lượng ảnh hàng loạt.</p>
+    </div>
+
+    <div class="file-layout">
+      <section class="card file-main" aria-label="Danh sách ảnh">
+        <div id="drop"></div>
+
+        <div class="list-head" id="listHead" hidden>
+          <span class="panel-label" id="listTitle">Ảnh</span>
+          <div class="chip-row">
+            <button class="btn btn--sm btn--ghost" type="button" id="btnClearAll">Xóa tất cả</button>
+          </div>
+        </div>
+        <ul class="file-list" id="fileList"></ul>
+      </section>
+
+      <aside class="card file-side" aria-label="Tùy chọn">
+        <div class="field">
+          <span class="field__label">Định dạng đầu ra</span>
+          <div class="seg" id="segFormat" role="group" aria-label="Định dạng đầu ra">
+            <button type="button" data-v="same" aria-pressed="true">Giữ nguyên</button>
+            <button type="button" data-v="image/jpeg" aria-pressed="false">JPG</button>
+            <button type="button" data-v="image/png" aria-pressed="false">PNG</button>
+            <button type="button" data-v="image/webp" aria-pressed="false">WebP</button>
+          </div>
+          <p class="field__help" id="formatHelp">WebP thường nhẹ nhất, phù hợp đăng web. JPG dùng được mọi nơi.</p>
+        </div>
+
+        <div class="field">
+          <label for="quality">Chất lượng</label>
+          <div class="range-row">
+            <input type="range" id="quality" min="10" max="100" step="5" value="80">
+            <output id="qualityOut" for="quality">80%</output>
+          </div>
+          <p class="field__help" id="qualityHelp">70–85% giảm mạnh dung lượng mà mắt thường khó thấy khác biệt.</p>
+        </div>
+
+        <div class="field">
+          <span class="field__label">Kích thước tối đa (cạnh dài)</span>
+          <div class="seg" id="segSize" role="group" aria-label="Kích thước tối đa">
+            <button type="button" data-v="0" aria-pressed="true">Giữ nguyên</button>
+            <button type="button" data-v="2560" aria-pressed="false">2560</button>
+            <button type="button" data-v="1920" aria-pressed="false">1920</button>
+            <button type="button" data-v="1280" aria-pressed="false">1280</button>
+            <button type="button" data-v="800" aria-pressed="false">800</button>
+          </div>
+          <p class="field__help">Đơn vị: pixel. Ảnh nhỏ hơn mức này giữ nguyên kích thước.</p>
+        </div>
+
+        <div class="summary" id="summary" hidden>
+          <div><strong id="sumBefore">—</strong><span>Trước</span></div>
+          <div><strong id="sumAfter">—</strong><span>Sau</span></div>
+          <div><strong id="sumSaved">—</strong><span>Thay đổi</span></div>
+        </div>
+
+        <button class="btn btn--primary btn--lg" type="button" id="btnZip" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          <span id="btnZipText">Tải tất cả (.zip)</span>
+        </button>
+
+        <div class="privacy-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Ảnh được xử lý ngay trên máy của bạn, không tải lên máy chủ.</span>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="../assets/js/filekit.js"></script>
+  <script src="../assets/js/tool-image.js"></script>
+</body>
+</html>
