@@ -70,14 +70,15 @@
     }
   };
 
-  /* ---------- Sáng / tối ---------- */
-  var savedTheme = storage.get("mainn.theme", null);
-  if (savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+  /* ---------- Sáng / tối ----------
+     Mặc định: giao diện sáng. Lựa chọn của người dùng được lưu trong trình duyệt
+     (localStorage "mainn.theme") và tự áp dụng lại ở lần truy cập sau. */
+  var HOME = BASE + "home/";
+  var savedTheme = storage.get("mainn.theme", "light");
+  document.documentElement.setAttribute("data-theme", savedTheme === "dark" ? "dark" : "light");
 
   function currentTheme() {
-    var t = document.documentElement.getAttribute("data-theme");
-    if (t) return t;
-    return window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
   }
 
   /* ---------- Toast ---------- */
@@ -111,7 +112,7 @@
     var host = document.querySelector("[data-site-header]");
     if (!host) return;
     var page = document.body.getAttribute("data-page") || "home";
-    var links = '<a href="' + BASE + '"' + (page === "home" ? ' aria-current="page"' : "") + ">Trang chủ</a>";
+    var links = '<a href="' + HOME + '"' + (page === "home" ? ' aria-current="page"' : "") + ">Trang chủ</a>";
     TOOLS.forEach(function (t) {
       if (t.status !== "live") return;
       links +=
@@ -121,19 +122,23 @@
     host.className = "site-header";
     host.innerHTML =
       '<div class="container site-header__inner">' +
-      '<a class="brand" href="' + BASE + '" aria-label="MAINN Media - Trang chủ công cụ">' +
-      '<span class="brand__mark">M</span>' +
-      '<span class="brand__text"><span class="brand__name">MAINN <span>MEDIA</span></span>' +
-      '<span class="brand__sub">Bộ công cụ miễn phí</span></span></a>' +
+      '<a class="brand" href="' + HOME + '" aria-label="MAINN Media - Trang chủ công cụ">' +
+      '<img class="brand__logo logo--on-light" src="' + BASE + 'assets/img/logo-mainn-media.png" alt="MAINN Media" width="371" height="96">' +
+      '<img class="brand__logo logo--on-dark" src="' + BASE + 'assets/img/logo-mainn-media-light.png" alt="MAINN Media" width="371" height="96">' +
+      '<span class="brand__divider"></span><span class="brand__sub">Bộ công cụ<br>miễn phí</span></a>' +
       '<nav class="nav" aria-label="Điều hướng chính">' + links + "</nav>" +
       '<div class="header-actions">' +
-      '<button class="btn btn--ghost icon-btn" type="button" data-theme-toggle aria-label="Đổi giao diện sáng/tối"></button>' +
+      '<button class="btn theme-toggle" type="button" data-theme-toggle></button>' +
       '<a class="btn btn--dark btn--sm header-cta" href="https://mainnmedia.com" target="_blank" rel="noopener">mainnmedia.com ' + ICONS.external + "</a>" +
       "</div></div>";
 
     var toggle = host.querySelector("[data-theme-toggle]");
     function paint() {
-      toggle.innerHTML = currentTheme() === "dark" ? ICONS.sun : ICONS.moon;
+      var dark = currentTheme() === "dark";
+      // Hiển thị giao diện sẽ chuyển sang khi bấm
+      toggle.innerHTML = (dark ? ICONS.sun : ICONS.moon) + '<span class="theme-toggle__label">' + (dark ? "Sáng" : "Tối") + "</span>";
+      toggle.setAttribute("aria-label", dark ? "Chuyển sang giao diện sáng" : "Chuyển sang giao diện tối");
+      toggle.title = toggle.getAttribute("aria-label");
     }
     paint();
     toggle.addEventListener("click", function () {
@@ -153,7 +158,7 @@
     host.innerHTML =
       '<div class="site-footer__bar"></div>' +
       '<div class="container site-footer__inner">' +
-      '<div><span class="brand__name">MAINN <span style="color:var(--brand)">MEDIA</span></span>' +
+      '<div class="site-footer__brand"><img src="' + BASE + 'assets/img/logo-mainn-media-light.png" alt="MAINN Media" width="371" height="96">' +
       '<div>Agency Marketing &amp; vận hành thương mại điện tử</div></div>' +
       "<div>© " + new Date().getFullYear() + ' MAINN Media · <a href="https://mainnmedia.com" target="_blank" rel="noopener">mainnmedia.com</a></div>' +
       "</div>";
@@ -177,7 +182,7 @@
     }).join("");
   }
 
-  window.MAINN = { BASE: BASE, TOOLS: TOOLS, ICONS: ICONS, storage: storage, toast: toast, esc: esc };
+  window.MAINN = { BASE: BASE, HOME: HOME, TOOLS: TOOLS, ICONS: ICONS, storage: storage, toast: toast, esc: esc };
 
   function init() {
     renderHeader();

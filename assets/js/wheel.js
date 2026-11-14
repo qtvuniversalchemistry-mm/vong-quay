@@ -136,7 +136,7 @@
       var c = cs.getPropertyValue("--wheel-" + i).trim();
       if (c) out.push(c);
     }
-    return out.length ? out : ["#ff5a1f", "#0f1b3d", "#ffb020", "#2b4c9b"];
+    return out.length ? out : ["#0099e5", "#00e0a4", "#0a2540", "#00bcd4"];
   }
 
   function segmentColors(n) {
@@ -151,12 +151,20 @@
     return out;
   }
 
-  function textColorFor(hex) {
+  // Chọn chữ trắng hoặc xanh navy tùy màu nền nào tương phản tốt hơn (chuẩn WCAG)
+  function luminance(hex) {
     var m = /^#?([0-9a-f]{6})$/i.exec(hex);
-    if (!m) return "#fff";
-    var v = parseInt(m[1], 16), r = (v >> 16) & 255, g = (v >> 8) & 255, b = v & 255;
-    var lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-    return lum > 0.62 ? "#0f1b3d" : "#ffffff";
+    if (!m) return 0;
+    var v = parseInt(m[1], 16);
+    return [(v >> 16) & 255, (v >> 8) & 255, v & 255].map(function (c) {
+      c /= 255;
+      return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+    }).reduce(function (sum, c, i) { return sum + c * [0.2126, 0.7152, 0.0722][i]; }, 0);
+  }
+  function textColorFor(hex) {
+    var L = luminance(hex), dark = "#04223f", Ld = luminance(dark);
+    var vsWhite = 1.05 / (L + 0.05), vsDark = (L + 0.05) / (Ld + 0.05);
+    return vsDark > vsWhite ? dark : "#ffffff";
   }
 
   /* ---------- Vẽ vòng quay ---------- */
@@ -181,7 +189,7 @@
     var R = size / 2 - 4;
     var rim = Math.max(8, size * 0.028);
     var r = R - rim;
-    var ink = getComputedStyle(document.documentElement).getPropertyValue("--ink").trim() || "#0f1b3d";
+    var ink = getComputedStyle(document.documentElement).getPropertyValue("--ink").trim() || "#0a2540";
     var n = items.length;
 
     // Viền ngoài
@@ -236,7 +244,7 @@
       var ang = (d / dots) * TAU;
       c.beginPath();
       c.arc(cx + Math.cos(ang) * (R - rim / 2), cy + Math.sin(ang) * (R - rim / 2), Math.max(1.6, rim * 0.22), 0, TAU);
-      c.fillStyle = d % 2 ? "#ffd27a" : "#ffffff"; c.fill();
+      c.fillStyle = d % 2 ? "#00f1a8" : "#ffffff"; c.fill();
     }
 
     // Bóng mờ bên trong tạo chiều sâu
@@ -503,7 +511,7 @@
     var W = window.innerWidth, H = window.innerHeight;
     cv.width = W * dpr; cv.height = H * dpr;
     var c = cv.getContext("2d"); c.scale(dpr, dpr);
-    var colors = paletteColors().concat(["#ffffff", "#ffd27a"]);
+    var colors = ["#00f1a8", "#0099e5", "#7af3cf", "#3dbcf5", "#ffffff", "#0a2540"];
     var parts = [];
     for (var i = 0; i < 180; i++) {
       var fromLeft = i % 2 === 0;

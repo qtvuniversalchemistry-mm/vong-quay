@@ -2,7 +2,7 @@
 
 Website tĩnh (HTML/CSS/JS thuần, không cần cài đặt, không cần máy chủ), gồm:
 
-- **Trang chủ** (`index.html`): giới thiệu và danh sách công cụ.
+- **Trang chủ** (`home/`): giới thiệu và danh sách công cụ. Địa chỉ gốc `/` tự chuyển đến `/home/`.
 - **Vòng quay may mắn** (`vong-quay/`): nhập danh sách, quay ngẫu nhiên, xem lịch sử kết quả.
 
 ## Tính năng vòng quay
@@ -14,7 +14,8 @@ Website tĩnh (HTML/CSS/JS thuần, không cần cài đặt, không cần máy 
 - Công cụ danh sách: Trộn, Sắp xếp A→Z, Xóa trùng, Nhập file `.txt`/`.csv`, Danh sách mẫu, Xóa hết.
 - Lịch sử kết quả: sao chép, tải file CSV mở được bằng Excel (giữ đúng tiếng Việt), xóa lịch sử.
 - Cài đặt: tiêu đề vòng quay, thời gian quay (2–20 giây), bảng màu, tự động xóa người trúng, bật/tắt âm thanh, pháo giấy.
-- Chế độ toàn màn hình (dùng khi livestream / trình chiếu), giao diện sáng/tối, tương thích điện thoại.
+- Chế độ toàn màn hình (dùng khi livestream / trình chiếu), tương thích điện thoại.
+- Giao diện sáng (mặc định) và tối: nút **Sáng/Tối** trên thanh menu; lựa chọn được lưu trong trình duyệt và áp dụng cho mọi trang.
 - Sao chép link chia sẻ: người nhận mở link sẽ thấy đúng danh sách và tiêu đề.
 - Dữ liệu tự lưu trong trình duyệt của người dùng (không gửi lên máy chủ).
 
@@ -25,22 +26,25 @@ Website tĩnh (HTML/CSS/JS thuần, không cần cài đặt, không cần máy 
 3. **Branch**: chọn nhánh chứa code (ví dụ `main`), thư mục **/ (root)** → bấm **Save**.
 4. Đợi 1–2 phút, tải lại trang Settings → Pages sẽ hiện link dạng
    `https://<tên-tài-khoản>.github.io/vong-quay/`.
-5. Mở link: trang chủ hiện ra; công cụ vòng quay nằm ở `.../vong-quay/vong-quay/`.
+5. Mở link: trang tự chuyển đến trang chủ `.../vong-quay/home/`; công cụ vòng quay nằm ở `.../vong-quay/vong-quay/`.
+
+> Phần `/vong-quay/` đứng đầu đường dẫn là **tên repo** (quy tắc của GitHub Pages). Muốn đường dẫn gọn
+> dạng `ten-mien.com/home/` và `ten-mien.com/vong-quay/`, gắn tên miền riêng tại Settings → Pages → **Custom domain**.
 
 > Lưu ý: GitHub Pages miễn phí yêu cầu repo **công khai (Public)**, trừ khi tài khoản/tổ chức có gói trả phí.
 
 ## Đổi màu thương hiệu
 
-Mở `assets/css/theme.css` và thay mã màu ở đầu file:
+Mở `assets/css/theme.css`. Màu hiện tại lấy theo logo MAINN Media: xanh ngọc `#00F1A8` → xanh dương `#0099E5`.
 
 | Biến | Dùng cho |
 |---|---|
-| `--brand`, `--brand-strong`, `--brand-soft` | Màu chủ đạo: nút bấm, điểm nhấn, nút QUAY |
-| `--ink`, `--ink-soft` | Màu phụ: nền tối, viền vòng quay, chân trang |
-| `--accent` | Màu nhấn thứ ba |
+| `--brand-green`, `--brand-blue`, `--brand-gradient` | Hai màu logo và dải chuyển màu: nút chính, nút QUAY, điểm nhấn |
+| `--brand`, `--brand-text`, `--brand-soft` | Viền, công tắc, chữ màu thương hiệu, nền nhạt |
+| `--ink`, `--ink-soft` | Xanh navy đậm: nền tối, viền vòng quay, chân trang |
 | `--wheel-1` … `--wheel-6` | 6 màu các ô trên vòng quay (bảng màu "MAINN Media") |
 
-Màu hiện tại là **màu tạm** (cam `#ff5a1f` + xanh navy `#0f1b3d`), cần thay bằng mã màu chính thức của MAINN Media.
+Logo nằm trong `assets/img/` (`logo-mainn-media.png` cho nền sáng, `logo-mainn-media-light.png` cho nền tối, `logo-m.png`, `favicon.png`).
 
 ## Thêm công cụ mới
 
@@ -56,11 +60,12 @@ Màu hiện tại là **màu tạm** (cam `#ff5a1f` + xanh navy `#0f1b3d`), cầ
 ## Cấu trúc thư mục
 
 ```
-index.html              Trang chủ
+index.html              Chuyển hướng sang home/
+home/index.html         Trang chủ
 vong-quay/index.html    Trang vòng quay
-assets/css/theme.css    Màu thương hiệu (sửa ở đây)
+assets/css/theme.css    Màu thương hiệu, giao diện sáng/tối (sửa ở đây)
 assets/css/main.css     Giao diện chung
-assets/js/site.js       Header, footer, danh sách công cụ, sáng/tối
+assets/js/site.js       Header, footer, danh sách công cụ, nút Sáng/Tối
 assets/js/wheel.js      Logic vòng quay
-assets/img/favicon.svg  Biểu tượng tab trình duyệt
+assets/img/             Logo, favicon
 ```

@@ -1,41 +1,51 @@
 /* =========================================================
    MÀU THƯƠNG HIỆU MAINN MEDIA — CHỈ CẦN SỬA FILE NÀY
    ---------------------------------------------------------
-   Thay mã màu bên dưới bằng mã màu chính thức của MAINN Media.
-   Toàn bộ website (nút, tiêu đề, vòng quay, hiệu ứng) sẽ tự đổi theo.
-   Lưu ý: màu các ô trên vòng quay nằm ở biến --wheel-1 ... --wheel-6.
+   Lấy theo logo MAINN Media: chuyển màu xanh ngọc (#00F1A8) → xanh dương (#0099E5).
+   Toàn bộ website (nút, tiêu đề, vòng quay, hiệu ứng) tự đổi theo các biến dưới đây.
    ========================================================= */
 
 :root {
-  /* Màu chủ đạo (nút bấm, điểm nhấn) */
-  --brand: #ff5a1f;
-  --brand-strong: #e5470e;
-  --brand-soft: #fff0e9;
+  /* Hai màu gốc của logo */
+  --brand-green: #00f1a8;
+  --brand-blue: #0099e5;
 
-  /* Màu phụ (tiêu đề, nền tối, viền vòng quay) */
-  --ink: #0f1b3d;
-  --ink-soft: #24345f;
+  /* Dải màu chuyển như logo (nút chính, nút QUAY, điểm nhấn) */
+  --brand-gradient: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-blue) 100%);
 
-  /* Màu nhấn thứ ba */
-  --accent: #ffb020;
+  /* Màu chủ đạo dùng cho viền, công tắc, thanh trượt */
+  --brand: #0099e5;
+  --brand-strong: #0080c4;
+  --brand-soft: #e3f4fc;
+  /* Màu chữ thương hiệu (đậm hơn một chút để dễ đọc trên nền sáng) */
+  --brand-text: #0077b6;
+  /* Chữ đặt trên nền dải màu thương hiệu */
+  --on-brand: #04223f;
+
+  /* Màu phụ: xanh navy đậm (nền tối, viền vòng quay, chân trang) */
+  --ink: #0a2540;
+  --ink-soft: #14365c;
+
+  /* Màu nhấn: xanh ngọc của logo */
+  --accent: #00f1a8;
 
   /* 6 màu xoay vòng cho các ô trên vòng quay (bảng màu "MAINN Media") */
-  --wheel-1: #ff5a1f;
-  --wheel-2: #0f1b3d;
-  --wheel-3: #ffb020;
-  --wheel-4: #2b4c9b;
-  --wheel-5: #ff8a5b;
-  --wheel-6: #24345f;
+  --wheel-1: #0099e5;
+  --wheel-2: #00e0a4;
+  --wheel-3: #0a2540;
+  --wheel-4: #00bcd4;
+  --wheel-5: #1d5fa6;
+  --wheel-6: #7af3cf;
 
-  /* Giao diện sáng */
-  --bg: #f6f7fb;
+  /* Giao diện sáng (mặc định) */
+  --bg: #f4f8fb;
   --surface: #ffffff;
-  --surface-2: #f1f3f9;
-  --border: #e3e7f0;
-  --text: #121a33;
-  --text-muted: #5d6680;
-  --shadow: 0 1px 2px rgba(15, 27, 61, 0.06), 0 8px 24px rgba(15, 27, 61, 0.08);
-  --shadow-lg: 0 20px 60px rgba(15, 27, 61, 0.18);
+  --surface-2: #eef3f8;
+  --border: #dde6ef;
+  --text: #0d1b2e;
+  --text-muted: #56677d;
+  --shadow: 0 1px 2px rgba(10, 37, 64, 0.06), 0 8px 24px rgba(10, 37, 64, 0.08);
+  --shadow-lg: 0 20px 60px rgba(10, 37, 64, 0.18);
 
   --radius: 16px;
   --radius-sm: 10px;
@@ -44,31 +54,17 @@
   color-scheme: light;
 }
 
-/* Giao diện tối */
+/* Giao diện tối (bật bằng nút Sáng/Tối trên thanh menu, lưu trong trình duyệt) */
 :root[data-theme="dark"] {
-  --brand-soft: rgba(255, 90, 31, 0.14);
-  --bg: #0a1022;
-  --surface: #111a33;
-  --surface-2: #17213f;
-  --border: #253154;
-  --text: #eef1f8;
-  --text-muted: #9aa5c4;
+  --brand-soft: rgba(0, 153, 229, 0.16);
+  --brand-text: #3dbcf5;
+  --bg: #071526;
+  --surface: #0d2036;
+  --surface-2: #132b46;
+  --border: #1f3a5a;
+  --text: #eaf2fa;
+  --text-muted: #93a8bf;
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
   color-scheme: dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --brand-soft: rgba(255, 90, 31, 0.14);
-    --bg: #0a1022;
-    --surface: #111a33;
-    --surface-2: #17213f;
-    --border: #253154;
-    --text: #eef1f8;
-    --text-muted: #9aa5c4;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.5);
-    color-scheme: dark;
-  }
 }
