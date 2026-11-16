@@ -239,10 +239,29 @@
 
   window.MAINN = { BASE: BASE, HOME: HOME, TOOLS: TOOLS, ICONS: ICONS, storage: storage, toast: toast, esc: esc };
 
+  /* ---------- Dữ liệu có cấu trúc FAQ cho Google (tự lấy từ phần "Câu hỏi thường gặp") ---------- */
+  function renderFaqSchema() {
+    var items = document.querySelectorAll(".faq details");
+    if (!items.length) return;
+    var data = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: Array.prototype.map.call(items, function (d) {
+        var q = d.querySelector("summary"), a = d.querySelector("p");
+        return { "@type": "Question", name: q.textContent.trim(), acceptedAnswer: { "@type": "Answer", text: a ? a.textContent.trim() : "" } };
+      })
+    };
+    var s = document.createElement("script");
+    s.type = "application/ld+json";
+    s.textContent = JSON.stringify(data);
+    document.head.appendChild(s);
+  }
+
   function init() {
     renderHeader();
     renderFooter();
     renderToolGrid();
+    renderFaqSchema();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();

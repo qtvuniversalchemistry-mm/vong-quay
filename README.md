@@ -25,6 +25,16 @@ Tất cả công cụ xử lý file đều chạy **ngay trong trình duyệt**,
 - Sao chép link chia sẻ: người nhận mở link sẽ thấy đúng danh sách và tiêu đề.
 - Dữ liệu tự lưu trong trình duyệt của người dùng (không gửi lên máy chủ).
 
+## Bài viết SEO bên dưới mỗi công cụ
+
+Mỗi trang công cụ có một khối `<article class="card article">` (đánh dấu bằng chú thích `BÀI VIẾT SEO`) gồm: tiêu đề H2, đoạn mở đầu, mục lục, hướng dẫn từng bước, mẹo, **Câu hỏi thường gặp**, liên kết sang công cụ khác và khối giới thiệu MAINN Media.
+
+- Đây là **nội dung mẫu**, có thể viết lại toàn bộ cho phù hợp bộ từ khóa SEO.
+- Mỗi trang chỉ có **một thẻ H1** (tên công cụ ở đầu trang); trong bài viết dùng H2/H3.
+- Mục lục dùng liên kết `#id`: khi đổi tiêu đề H2, giữ hoặc cập nhật `id` tương ứng.
+- Phần "Câu hỏi thường gặp" (`.faq details`) được tự động chuyển thành dữ liệu có cấu trúc **FAQPage** cho Google, không cần sửa riêng.
+- Nên sửa thêm thẻ `<title>` và `<meta name="description">` ở đầu mỗi file cho khớp từ khóa chính.
+
 ## Đưa website lên mạng bằng GitHub Pages (miễn phí)
 
 1. Mở repo trên GitHub → **Settings** → mục **Pages** (cột trái).
