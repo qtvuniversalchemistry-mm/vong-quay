@@ -21,6 +21,8 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="m17 10 5-3v10l-5-3"/></svg>',
     doc:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>',
+    shield:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>',
     menu:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
     wheel:
@@ -72,6 +74,15 @@
       desc: "Giảm dung lượng video, đổi sang MP4, WebM, MOV, hạ độ phân giải — xử lý ngay trên trình duyệt.",
       href: "chuyen-doi-video/",
       icon: "video",
+      status: "live"
+    },
+    {
+      id: "xoa-nhan-ai",
+      name: "Xóa nhãn AI khỏi ảnh",
+      nav: "Xóa nhãn AI",
+      desc: "Xóa nhãn “AI info”, “Made with AI” (C2PA, XMP) và thông tin ẩn EXIF, GPS trong ảnh, giữ nguyên chất lượng.",
+      href: "xoa-nhan-ai/",
+      icon: "shield",
       status: "live"
     },
     {

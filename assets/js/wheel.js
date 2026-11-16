@@ -23,8 +23,6 @@
     { id: "names", icon: "👥", title: "Vòng quay may mắn", label: "Danh sách tên", color: "#0099e5", items: SAMPLE },
     { id: "livestream", icon: "🎥", title: "Minigame livestream", label: "Minigame livestream", color: "#e5484d",
       items: ["Voucher 50.000đ", "Freeship đơn tiếp theo", "Quà tặng kèm", "Sản phẩm mẫu thử", "Giảm thêm 10%", "Thêm 1 lượt quay", "Chọn quà tùy ý", "Chúc may mắn lần sau"] },
-    { id: "voucher", icon: "🎟️", title: "Vòng quay voucher", label: "Tặng voucher", color: "#00a3b8",
-      items: ["Giảm 10%", "Giảm 20%", "Giảm 30%", "Giảm 50%", "Freeship", "Mua 1 tặng 1", "Quà tặng kèm", "Chúc may mắn lần sau"] },
     { id: "promo", icon: "🏷️", title: "Chạy khuyến mãi kiểu gì?", label: "Ý tưởng khuyến mãi", color: "#f08c00",
       items: ["Giảm giá theo %", "Đồng giá", "Mua 2 giảm thêm", "Combo tiết kiệm", "Tặng quà kèm đơn", "Freeship", "Flash sale giờ vàng", "Voucher shop", "Giảm giá theo bậc đơn hàng", "Ưu đãi đơn đầu tiên", "Tích điểm đổi quà", "Mua kèm giá sốc"] },
     { id: "tiktok", icon: "📱", title: "Hôm nay quay video gì?", label: "Ý tưởng video bán hàng", color: "#1d5fa6",
@@ -36,8 +34,6 @@
         "Mì Quảng", "Hủ tiếu", "Bánh xèo", "Lẩu Thái", "Lẩu nấm", "Nướng BBQ", "Hải sản", "Gà rán", "Pizza", "Sushi"] },
     { id: "luckymoney", icon: "🧧", title: "Lì xì năm mới", label: "Lì xì năm mới", color: "#d6336c",
       items: ["10.000đ", "20.000đ", "50.000đ", "100.000đ", "200.000đ", "500.000đ", "Thêm 1 lượt quay", "Chúc may mắn lần sau"] },
-    { id: "gift", icon: "🎁", title: "Tặng quà gì cho bạn gái?", label: "Tặng quà gì cho bạn gái?", color: "#c026d3",
-      items: ["Hoa tươi", "Son môi", "Nước hoa", "Gấu bông", "Túi xách", "Đồng hồ", "Trang sức", "Sô-cô-la", "Váy đầm", "Bữa tối lãng mạn", "Album ảnh kỷ niệm", "Chuyến du lịch ngắn"] },
     { id: "weekend", icon: "🏕️", title: "Cuối tuần này làm gì?", label: "Hoạt động cuối tuần", color: "#00b884",
       items: ["Đi cà phê", "Xem phim", "Đi picnic", "Leo núi", "Đi bơi", "Nấu ăn ở nhà", "Đọc sách", "Chơi board game", "Đi karaoke", "Dọn dẹp nhà cửa", "Về thăm gia đình", "Ngủ nướng"] }
   ];

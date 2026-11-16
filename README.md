@@ -6,6 +6,7 @@ Website tĩnh (HTML/CSS/JS thuần, không cần cài đặt, không cần máy 
 - **Vòng quay may mắn** (`vong-quay/`): nhập danh sách, quay ngẫu nhiên, xem lịch sử kết quả.
 - **Chuyển đổi & nén ảnh** (`chuyen-doi-anh/`): đổi JPG/PNG/WebP, chỉnh chất lượng, thu nhỏ kích thước, xử lý hàng loạt, tải .zip.
 - **Ảnh sang PDF** (`anh-sang-pdf/`): ghép nhiều ảnh thành PDF, kéo thả sắp xếp trang, khổ A4/Letter/vừa ảnh, lề, mức dung lượng.
+- **Xóa nhãn AI khỏi ảnh** (`xoa-nhan-ai/`): gỡ C2PA/Content Credentials, XMP, IPTC, tham số AI, EXIF, GPS khỏi JPG/PNG/WebP mà không nén lại ảnh; định dạng khác chuyển sang JPG/PNG. Không xóa được dấu ẩn trong điểm ảnh (VD SynthID).
 - **Chuyển đổi & nén video** (`chuyen-doi-video/`): nén dung lượng, đổi MP4/WebM/MOV, hạ độ phân giải, bỏ âm thanh. Cần Chrome/Edge bản mới (dùng WebCodecs).
 
 Tất cả công cụ xử lý file đều chạy **ngay trong trình duyệt**, file không được tải lên máy chủ. Thư viện bên thứ ba nằm trong `assets/vendor/` (xem `assets/vendor/LICENSES.md`).
@@ -16,7 +17,7 @@ Tất cả công cụ xử lý file đều chạy **ngay trong trình duyệt**,
 - Quay bằng nút QUAY, bấm vào vòng quay hoặc `Ctrl + Enter` (phím cách khi đang toàn màn hình).
 - Kết quả chọn bằng bộ sinh số ngẫu nhiên an toàn của trình duyệt (`crypto.getRandomValues`), mỗi mục có cơ hội như nhau.
 - Hộp thông báo người trúng: Quay tiếp / Xóa khỏi danh sách / Đóng; pháo giấy và âm thanh.
-- **Vòng quay mẫu** (phía trên ô danh sách): Danh sách tên, Hôm nay ăn gì?, Minigame livestream, Lì xì năm mới, Tặng voucher, Ý tưởng khuyến mãi, Ý tưởng video bán hàng, Quà tri ân khách hàng, Tặng quà gì cho bạn gái?, Hoạt động cuối tuần. Bấm là đổi ngay tiêu đề + danh sách; nếu đang có danh sách tự nhập, trang sẽ hỏi xác nhận trước khi thay. Sửa/thêm mẫu trong mảng `TEMPLATES` ở `assets/js/wheel.js`.
+- **Vòng quay mẫu** (phía trên ô danh sách): Danh sách tên, Minigame livestream, Ý tưởng khuyến mãi, Ý tưởng video bán hàng, Quà tri ân khách hàng, Hôm nay ăn gì?, Lì xì năm mới, Hoạt động cuối tuần. Bấm là đổi ngay tiêu đề + danh sách; nếu đang có danh sách tự nhập, trang sẽ hỏi xác nhận trước khi thay. Sửa/thêm mẫu trong mảng `TEMPLATES` ở `assets/js/wheel.js`.
 - Công cụ danh sách: Trộn, Sắp xếp A→Z, Xóa trùng, Nhập file `.txt`/`.csv`, Xóa hết.
 - Lịch sử kết quả: sao chép, tải file CSV mở được bằng Excel (giữ đúng tiếng Việt), xóa lịch sử.
 - Cài đặt: tiêu đề vòng quay, thời gian quay (2–20 giây), bảng màu (mặc định: Cầu vồng), tự động xóa người trúng, bật/tắt âm thanh, pháo giấy.

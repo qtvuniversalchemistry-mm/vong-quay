@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Xóa nhãn AI khỏi ảnh online miễn phí | MAINN Media</title>
+  <meta name="description" content="Xóa nhãn AI info, Made with AI (C2PA, XMP, IPTC) và thông tin ẩn EXIF, GPS khỏi ảnh ChatGPT, Gemini, Midjourney. Giữ nguyên chất lượng, miễn phí, ảnh không tải lên máy chủ.">
+  <meta name="theme-color" content="#0a2540">
+  <meta property="og:title" content="Xóa nhãn AI khỏi ảnh | MAINN Media">
+  <meta property="og:description" content="Xóa nhãn AI và thông tin ẩn (EXIF, GPS) khỏi ảnh, giữ nguyên chất lượng, miễn phí.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="../assets/img/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/site.js"></script>
+</head>
+<body data-page="xoa-nhan-ai">
+  <header data-site-header></header>
+
+  <main class="container">
+    <div class="tool-head">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../home/">Trang chủ</a><span>/</span><span>Xóa nhãn AI khỏi ảnh</span></nav>
+      <h1>Xóa nhãn AI khỏi ảnh</h1>
+      <p>Xóa nhãn “AI info”, “Made with AI” và thông tin ẩn (EXIF, GPS) trong ảnh, giữ nguyên chất lượng.</p>
+    </div>
+
+    <div class="file-layout">
+      <section class="card file-main" aria-label="Danh sách ảnh">
+        <div id="drop"></div>
+        <div class="list-head" id="listHead" hidden>
+          <span class="panel-label" id="listTitle">Ảnh</span>
+          <div class="chip-row">
+            <button class="btn btn--sm btn--ghost" type="button" id="btnClearAll">Xóa tất cả</button>
+          </div>
+        </div>
+        <ul class="file-list" id="fileList"></ul>
+      </section>
+
+      <aside class="card file-side" aria-label="Thông tin">
+        <div class="field">
+          <span class="field__label">Công cụ sẽ xóa</span>
+          <ul class="check-list">
+            <li>Content Credentials (C2PA) – nguồn gốc nội dung AI</li>
+            <li>XMP, IPTC – nhãn “trained algorithmic media”</li>
+            <li>Câu lệnh, tham số AI (Stable Diffusion, ComfyUI…)</li>
+            <li>EXIF: tên máy, phần mềm, ngày chụp</li>
+            <li>Vị trí GPS nơi chụp ảnh</li>
+          </ul>
+          <p class="field__help">Giữ lại hướng xoay và hồ sơ màu để ảnh hiển thị đúng.</p>
+        </div>
+
+        <div class="summary" id="stats" hidden></div>
+
+        <button class="btn btn--primary btn--lg" type="button" id="btnZip" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          <span id="btnZipText">Tải tất cả (.zip)</span>
+        </button>
+
+        <div class="alert">
+          <strong>Lưu ý:</strong> một số nền tảng AI còn gắn dấu ẩn ngay trong điểm ảnh (ví dụ SynthID của Google). Loại dấu này không nằm trong thông tin file nên công cụ không xóa được.
+        </div>
+
+        <div class="privacy-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Ảnh được xử lý ngay trên máy của bạn, không tải lên máy chủ.</span>
+        </div>
+      </aside>
+    </div>
+    <!-- ===== BÀI VIẾT SEO: nội dung mẫu, có thể sửa/viết lại toàn bộ phần <article> bên dưới ===== -->
+    <article class="card article" id="huong-dan">
+      <h2>Xóa nhãn AI khỏi ảnh – gỡ “AI info”, “Made with AI” mà không giảm chất lượng</h2>
+      <p class="article__lead">Ảnh tạo bằng ChatGPT, Gemini, Adobe Firefly hay Midjourney thường được gắn thông tin nguồn gốc ẩn bên trong file. Khi đăng lên một số mạng xã hội, ảnh có thể hiện nhãn “AI info” hoặc “Made with AI”. Công cụ của MAINN Media giúp xóa các thông tin ẩn này cùng dữ liệu EXIF, vị trí GPS, giữ nguyên từng điểm ảnh.</p>
+
+      <nav class="toc" aria-label="Mục lục">
+        <strong>Nội dung bài viết</strong>
+        <ol>
+          <li><a href="#nhan-ai-la-gi">Nhãn AI trong ảnh là gì?</a></li>
+          <li><a href="#cach-xoa">Cách xóa nhãn AI khỏi ảnh</a></li>
+          <li><a href="#xoa-nhung-gi">Công cụ xóa những thông tin nào?</a></li>
+          <li><a href="#gioi-han">Những gì công cụ không xóa được</a></li>
+          <li><a href="#su-dung-dung">Sử dụng ảnh AI có trách nhiệm</a></li>
+          <li><a href="#cau-hoi-thuong-gap">Câu hỏi thường gặp</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="nhan-ai-la-gi">Nhãn AI trong ảnh là gì?</h2>
+      <p>Ngoài phần hình ảnh nhìn thấy được, mỗi file ảnh còn chứa “metadata” – thông tin ẩn đi kèm. Các công cụ tạo ảnh AI thường ghi vào đây dấu hiệu nguồn gốc, phổ biến nhất là:</p>
+      <ul>
+        <li><strong>C2PA (Content Credentials):</strong> chuẩn ghi lại nguồn gốc và lịch sử chỉnh sửa của nội dung số.</li>
+        <li><strong>XMP / IPTC:</strong> trường “Digital Source Type” với giá trị “trained algorithmic media” cho biết ảnh do AI tạo.</li>
+        <li><strong>Tham số tạo ảnh:</strong> một số công cụ như Stable Diffusion, ComfyUI lưu luôn câu lệnh (prompt) vào file PNG.</li>
+      </ul>
+      <p>Mạng xã hội có thể đọc các thông tin này để tự gắn nhãn cho bài đăng.</p>
+
+      <h2 id="cach-xoa">Cách xóa nhãn AI khỏi ảnh</h2>
+      <ol class="steps">
+        <li><strong>Thêm ảnh:</strong> kéo thả, bấm “Chọn file” hoặc dán ảnh bằng <kbd>Ctrl</kbd> + <kbd>V</kbd>. Có thể chọn nhiều ảnh.</li>
+        <li><strong>Xem kết quả kiểm tra:</strong> mỗi ảnh hiện danh sách thông tin ẩn đã tìm thấy và đã xóa.</li>
+        <li><strong>Tải về:</strong> tải từng ảnh hoặc bấm “Tải tất cả (.zip)”.</li>
+      </ol>
+
+      <h2 id="xoa-nhung-gi">Công cụ xóa những thông tin nào?</h2>
+      <ul>
+        <li>Content Credentials (C2PA), XMP, IPTC.</li>
+        <li>Câu lệnh và tham số tạo ảnh AI lưu trong file PNG.</li>
+        <li>EXIF: tên máy chụp, phần mềm, ngày giờ chụp.</li>
+        <li>Vị trí GPS nơi chụp – nên xóa trước khi đăng ảnh chụp tại nhà, kho hàng.</li>
+        <li>Chú thích ẩn, ảnh thu nhỏ và dữ liệu thừa đi kèm.</li>
+      </ul>
+      <p>Với ảnh JPG, PNG, WebP, công cụ chỉ gỡ phần thông tin ẩn, <strong>không nén lại ảnh</strong>, nên chất lượng giữ nguyên 100%. Hướng xoay và hồ sơ màu được giữ lại để ảnh hiển thị đúng.</p>
+
+      <h2 id="gioi-han">Những gì công cụ không xóa được</h2>
+      <p>Một số nền tảng gắn thêm <strong>dấu ẩn ngay trong điểm ảnh</strong>, ví dụ SynthID của Google. Loại dấu này không nằm trong metadata nên không xóa được bằng công cụ này. Ngoài ra, mạng xã hội có thể dùng thêm phương pháp nhận diện riêng. Vì vậy, xóa metadata không đảm bảo ảnh sẽ không bị gắn nhãn AI.</p>
+
+      <h2 id="su-dung-dung">Sử dụng ảnh AI có trách nhiệm</h2>
+      <ul>
+        <li>Tuân thủ chính sách của từng nền tảng về nội dung tạo bằng AI; nhiều nền tảng yêu cầu người đăng tự công bố.</li>
+        <li>Không dùng ảnh AI để giả mạo người thật, sự kiện thật hoặc gây hiểu lầm cho khách hàng về sản phẩm.</li>
+        <li>Ảnh sản phẩm trên sàn thương mại điện tử nên phản ánh đúng sản phẩm thực tế.</li>
+      </ul>
+
+      <h2 id="cau-hoi-thuong-gap">Câu hỏi thường gặp</h2>
+      <div class="faq">
+        <details>
+          <summary>Xóa nhãn AI có làm giảm chất lượng ảnh không?</summary>
+          <p>Không. Với JPG, PNG, WebP, công cụ chỉ gỡ phần thông tin ẩn, giữ nguyên từng điểm ảnh. Định dạng khác (HEIC, AVIF, GIF…) sẽ được chuyển sang JPG hoặc PNG.</p>
+        </details>
+        <details>
+          <summary>Đăng ảnh sau khi xóa có chắc chắn không bị gắn nhãn AI?</summary>
+          <p>Không chắc chắn. Một số nền tảng dùng dấu ẩn trong điểm ảnh hoặc công nghệ nhận diện riêng mà việc xóa metadata không tác động được.</p>
+        </details>
+        <details>
+          <summary>Ảnh chụp điện thoại có cần xóa thông tin không?</summary>
+          <p>Nên xóa nếu ảnh chứa vị trí GPS, nhất là ảnh chụp tại nhà, cửa hàng, kho hàng trước khi đăng công khai.</p>
+        </details>
+        <details>
+          <summary>Có xử lý nhiều ảnh cùng lúc được không?</summary>
+          <p>Được, tối đa 200 ảnh mỗi lượt và tải tất cả trong một file .zip.</p>
+        </details>
+        <details>
+          <summary>Ảnh có bị tải lên máy chủ không?</summary>
+          <p>Không. Toàn bộ quá trình diễn ra trong trình duyệt trên máy bạn.</p>
+        </details>
+      </div>
+
+      <h2>Công cụ miễn phí khác</h2>
+      <div class="related">
+        <a class="related__item" href="../vong-quay/"><strong>Vòng quay may mắn</strong><span>Chọn ngẫu nhiên người trúng thưởng cho minigame, sự kiện</span></a>
+        <a class="related__item" href="../chuyen-doi-anh/"><strong>Chuyển đổi &amp; nén ảnh</strong><span>Đổi JPG, PNG, WebP và giảm dung lượng ảnh hàng loạt</span></a>
+        <a class="related__item" href="../anh-sang-pdf/"><strong>Ảnh sang PDF</strong><span>Ghép nhiều ảnh thành một file PDF</span></a>
+        <a class="related__item" href="../chuyen-doi-video/"><strong>Chuyển đổi &amp; nén video</strong><span>Giảm dung lượng, đổi định dạng MP4, WebM, MOV</span></a>
+      </div>
+
+      <div class="article-cta">
+        <div>
+          <strong>Cần đội ngũ làm marketing cho doanh nghiệp?</strong>
+          <span>MAINN Media đồng hành cùng doanh nghiệp trên Facebook, TikTok, Shopee: quảng cáo, nội dung, video và vận hành gian hàng.</span>
+        </div>
+        <a class="btn btn--primary" href="https://mainnmedia.com" target="_blank" rel="noopener">Tìm hiểu MAINN Media</a>
+      </div>
+    </article>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="../assets/js/filekit.js"></script>
+  <script src="../assets/js/tool-meta.js"></script>
+</body>
+</html>
