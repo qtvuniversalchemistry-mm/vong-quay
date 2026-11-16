@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Xóa watermark, logo, chữ trên ảnh online | MAINN Media</title>
+  <meta name="description" content="Xóa watermark, logo, chữ, vật thể thừa trên ảnh của bạn miễn phí: tô vùng cần xóa, công cụ tự vẽ lại nền. Xử lý ngay trên trình duyệt, ảnh không tải lên máy chủ.">
+  <meta name="theme-color" content="#0a2540">
+  <meta property="og:title" content="Xóa watermark, logo, chữ trên ảnh | MAINN Media">
+  <meta property="og:description" content="Tô vùng cần xóa, công cụ tự vẽ lại nền. Miễn phí, ảnh không tải lên máy chủ.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="../assets/img/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/site.js"></script>
+</head>
+<body data-page="xoa-watermark">
+  <header data-site-header></header>
+
+  <main class="container">
+    <div class="tool-head">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../home/">Trang chủ</a><span>/</span><span>Xóa watermark trên ảnh</span></nav>
+      <h1>Xóa watermark, logo, chữ trên ảnh</h1>
+      <p>Tô lên vùng cần xóa, công cụ tự vẽ lại phần nền phía sau.</p>
+    </div>
+
+    <div class="file-layout">
+      <section class="card file-main" aria-label="Chỉnh sửa ảnh">
+        <div id="drop"></div>
+        <div id="editor" hidden>
+          <div class="list-head">
+            <div style="min-width:0"><span class="panel-label" id="fileName">Ảnh</span> <span class="muted" id="fileInfo"></span></div>
+            <button class="btn btn--sm btn--ghost" type="button" id="btnChange">Chọn ảnh khác</button>
+          </div>
+          <div class="wm-toolbar">
+            <div class="seg" id="segTool" role="group" aria-label="Công cụ tô">
+              <button type="button" data-v="brush" aria-pressed="true">🖌️ Cọ tô</button>
+              <button type="button" data-v="rect" aria-pressed="false">⬚ Khung</button>
+              <button type="button" data-v="erase" aria-pressed="false">🧽 Tẩy</button>
+            </div>
+            <div class="range-row wm-size">
+              <label for="brushSize" class="muted">Cỡ cọ</label>
+              <input type="range" id="brushSize" min="6" max="120" step="2" value="28">
+              <output id="brushSizeOut" for="brushSize">28</output>
+            </div>
+          </div>
+          <p class="field__help" id="hint">Tô kín watermark, logo, chữ cần xóa. Tô rộng hơn chữ một chút sẽ sạch hơn.</p>
+          <div class="wm-stage" id="stage"><canvas id="view" data-tool="brush" aria-label="Ảnh đang chỉnh sửa"></canvas></div>
+          <div class="progress" id="progress" hidden><div class="progress__bar" id="progressBar"></div></div>
+          <div class="wm-actions">
+            <button class="btn btn--primary btn--lg" type="button" id="btnRun" disabled>✨ <span id="btnRunText">Xóa vùng đã tô</span></button>
+            <button class="btn" type="button" id="btnClearMask" disabled>Bỏ vùng tô</button>
+            <button class="btn" type="button" id="btnUndo" disabled>↶ Hoàn tác</button>
+            <button class="btn" type="button" id="btnCompare" disabled title="Giữ chuột để xem ảnh gốc">👁 Giữ để xem ảnh gốc</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card file-side" aria-label="Hướng dẫn và tải về">
+        <div class="field">
+          <span class="field__label">Cách dùng</span>
+          <ol class="mini-steps">
+            <li>Chọn ảnh.</li>
+            <li>Tô kín vùng cần xóa (hoặc dùng Khung cho logo ở góc).</li>
+            <li>Bấm <strong>Xóa vùng đã tô</strong>. Còn sót thì tô lại và xóa tiếp.</li>
+            <li>Tải ảnh về.</li>
+          </ol>
+        </div>
+        <div class="field">
+          <span class="field__label">Định dạng tải về</span>
+          <div class="seg" id="segFormat" role="group" aria-label="Định dạng tải về">
+            <button type="button" data-v="same" aria-pressed="true">Giữ nguyên</button>
+            <button type="button" data-v="image/jpeg" aria-pressed="false">JPG</button>
+            <button type="button" data-v="image/png" aria-pressed="false">PNG</button>
+          </div>
+        </div>
+        <button class="btn btn--primary btn--lg" type="button" id="btnDownload" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Tải ảnh
+        </button>
+        <a class="btn" href="../xoa-nhan-ai/">Xóa tiếp nhãn AI ẩn trong file →</a>
+        <div class="alert">
+          <strong>Dùng đúng mục đích:</strong> chỉ xóa watermark, logo trên ảnh bạn sở hữu hoặc được phép chỉnh sửa. Không dùng để gỡ watermark bản quyền của người khác hay ảnh của shop khác.
+        </div>
+        <div class="privacy-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Ảnh được xử lý ngay trên máy của bạn, không tải lên máy chủ.</span>
+        </div>
+      </aside>
+    </div>
+    <!-- ===== BÀI VIẾT SEO: nội dung mẫu, có thể sửa/viết lại toàn bộ phần <article> bên dưới ===== -->
+    <article class="card article" id="huong-dan">
+      <h2>Xóa watermark, logo, chữ trên ảnh – tô là xóa, ngay trên trình duyệt</h2>
+      <p class="article__lead">Ảnh sản phẩm còn dính logo cũ, ảnh chụp có chữ ngày giờ, banner cần bỏ dòng chữ để thiết kế lại… Công cụ xóa watermark của MAINN Media cho phép bạn tô lên vùng cần xóa, rồi tự vẽ lại phần nền phía sau dựa trên các vùng ảnh xung quanh. Không cần Photoshop, không cần tải ảnh lên máy chủ.</p>
+
+      <nav class="toc" aria-label="Mục lục">
+        <strong>Nội dung bài viết</strong>
+        <ol>
+          <li><a href="#cach-xoa-watermark">Cách xóa watermark, logo, chữ trên ảnh</a></li>
+          <li><a href="#hoat-dong">Công cụ hoạt động thế nào?</a></li>
+          <li><a href="#meo-xoa-sach">Mẹo để xóa sạch, tự nhiên</a></li>
+          <li><a href="#gioi-han-watermark">Giới hạn cần biết</a></li>
+          <li><a href="#dung-dung-muc-dich">Sử dụng đúng mục đích</a></li>
+          <li><a href="#cau-hoi-thuong-gap">Câu hỏi thường gặp</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="cach-xoa-watermark">Cách xóa watermark, logo, chữ trên ảnh</h2>
+      <ol class="steps">
+        <li><strong>Chọn ảnh:</strong> kéo thả, bấm “Chọn file” hoặc dán ảnh bằng <kbd>Ctrl</kbd> + <kbd>V</kbd>.</li>
+        <li><strong>Tô vùng cần xóa:</strong> dùng <em>Cọ tô</em> cho chữ, nét mảnh; dùng <em>Khung</em> để khoanh nhanh logo ở góc; dùng <em>Tẩy</em> nếu tô nhầm.</li>
+        <li><strong>Bấm “Xóa vùng đã tô”</strong>. Giữ nút “Giữ để xem ảnh gốc” để so sánh trước và sau.</li>
+        <li><strong>Còn sót?</strong> Tô lại đúng chỗ đó và xóa tiếp. Bấm “Hoàn tác” (hoặc <kbd>Ctrl</kbd> + <kbd>Z</kbd>) nếu chưa ưng.</li>
+        <li><strong>Tải ảnh</strong> ở định dạng gốc, JPG hoặc PNG.</li>
+      </ol>
+
+      <h2 id="hoat-dong">Công cụ hoạt động thế nào?</h2>
+      <p>Công cụ dùng kỹ thuật “vá ảnh theo mảng” (patch-based inpainting): tìm những mảng ảnh nhỏ giống nhất ở vùng xung quanh rồi ghép lại để lấp vùng đã tô, từ phác thảo thô đến chi tiết. Toàn bộ chạy bằng JavaScript trong trình duyệt nên ảnh không rời khỏi máy bạn.</p>
+
+      <h2 id="meo-xoa-sach">Mẹo để xóa sạch, tự nhiên</h2>
+      <ul>
+        <li>Tô rộng hơn chữ, logo một chút, kể cả phần bóng đổ và viền mờ.</li>
+        <li>Xóa từng vùng nhỏ thay vì tô cả mảng lớn một lần.</li>
+        <li>Kết quả tốt nhất trên nền trời, tường, cỏ, vải, nền đơn sắc hoặc có hoa văn lặp lại.</li>
+        <li>Với watermark lặp kín toàn ảnh, nên xóa lần lượt từng chữ.</li>
+      </ul>
+
+      <h2 id="gioi-han-watermark">Giới hạn cần biết</h2>
+      <p>Công cụ không “đoán” được nội dung bị che hoàn toàn. Nếu watermark nằm đè lên khuôn mặt, chữ trên sản phẩm hay chi tiết phức tạp, phần vẽ lại có thể không đúng với thực tế. Vùng tô càng lớn, kết quả càng dễ lộ dấu vết. Khi đó, hãy dùng ảnh gốc không có watermark nếu bạn có.</p>
+
+      <h2 id="dung-dung-muc-dich">Sử dụng đúng mục đích</h2>
+      <ul>
+        <li>Chỉ xóa watermark, logo trên ảnh bạn sở hữu hoặc được phép chỉnh sửa: ảnh tự chụp, ảnh do team thiết kế, ảnh đã mua bản quyền cho phép chỉnh sửa.</li>
+        <li>Không dùng để gỡ watermark của ảnh stock chưa mua, ảnh của nhiếp ảnh gia hay ảnh sản phẩm của shop khác. Việc này có thể vi phạm quyền tác giả và chính sách của sàn thương mại điện tử.</li>
+        <li>Không chỉnh sửa ảnh để gây hiểu lầm cho khách hàng về sản phẩm.</li>
+      </ul>
+
+      <h2 id="cau-hoi-thuong-gap">Câu hỏi thường gặp</h2>
+      <div class="faq">
+        <details>
+          <summary>Xóa watermark có làm giảm chất lượng ảnh không?</summary>
+          <p>Chỉ vùng bạn tô được vẽ lại, phần còn lại của ảnh giữ nguyên độ phân giải gốc. Khi tải về dạng JPG, ảnh được lưu ở chất lượng cao (95%).</p>
+        </details>
+        <details>
+          <summary>Có xóa được watermark trên video không?</summary>
+          <p>Chưa. Công cụ hiện chỉ xử lý ảnh.</p>
+        </details>
+        <details>
+          <summary>Vì sao vùng đã xóa trông hơi mờ hoặc lặp lại?</summary>
+          <p>Vùng tô lớn hoặc nằm trên chi tiết phức tạp sẽ khó vẽ lại tự nhiên. Hãy hoàn tác, tô vùng nhỏ hơn và xóa nhiều lần.</p>
+        </details>
+        <details>
+          <summary>Có dùng được trên điện thoại không?</summary>
+          <p>Có. Bạn tô bằng ngón tay trên ảnh. Với ảnh nhiều chi tiết, dùng máy tính sẽ tô chính xác hơn.</p>
+        </details>
+        <details>
+          <summary>Ảnh có bị gửi lên máy chủ không?</summary>
+          <p>Không. Ảnh được xử lý ngay trong trình duyệt trên máy bạn.</p>
+        </details>
+      </div>
+
+      <h2>Công cụ miễn phí khác</h2>
+      <div class="related">
+        <a class="related__item" href="../vong-quay/"><strong>Vòng quay may mắn</strong><span>Chọn ngẫu nhiên người trúng thưởng cho minigame, sự kiện</span></a>
+        <a class="related__item" href="../chuyen-doi-anh/"><strong>Chuyển đổi &amp; nén ảnh</strong><span>Đổi JPG, PNG, WebP và giảm dung lượng ảnh hàng loạt</span></a>
+        <a class="related__item" href="../anh-sang-pdf/"><strong>Ảnh sang PDF</strong><span>Ghép nhiều ảnh thành một file PDF</span></a>
+        <a class="related__item" href="../chuyen-doi-video/"><strong>Chuyển đổi &amp; nén video</strong><span>Giảm dung lượng, đổi định dạng MP4, WebM, MOV</span></a>
+        <a class="related__item" href="../xoa-nhan-ai/"><strong>Xóa nhãn AI khỏi ảnh</strong><span>Xóa nhãn AI info, C2PA và thông tin ẩn EXIF, GPS</span></a>
+        <a class="related__item" href="../tao-ma-qr/"><strong>Tạo mã QR</strong><span>Link, WiFi, danh thiếp, chèn logo, tải PNG/SVG</span></a>
+        <a class="related__item" href="../tao-link-utm/"><strong>Tạo link UTM</strong><span>Gắn UTM, tạo link seeding hàng loạt, xuất CSV</span></a>
+      </div>
+
+      <div class="article-cta">
+        <div>
+          <strong>Cần đội ngũ làm marketing cho doanh nghiệp?</strong>
+          <span>MAINN Media đồng hành cùng doanh nghiệp trên Facebook, TikTok, Shopee: quảng cáo, nội dung, video và vận hành gian hàng.</span>
+        </div>
+        <a class="btn btn--primary" href="https://mainnmedia.com" target="_blank" rel="noopener">Tìm hiểu MAINN Media</a>
+      </div>
+    </article>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="../assets/js/filekit.js"></script>
+  <script src="../assets/js/tool-watermark.js"></script>
+</body>
+</html>

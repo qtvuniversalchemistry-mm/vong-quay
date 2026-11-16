@@ -764,3 +764,18 @@ input[type="range"] { flex: 1; accent-color: var(--brand); }
 .utm-list__place { font-weight: 700; font-size: 13.5px; grid-column: 1 / -1; }
 .utm-list .utm-link { font-size: 12px; }
 .article code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em; padding: 1px 6px; border-radius: 6px; background: var(--surface-2); word-break: break-all; }
+
+/* Xóa watermark */
+.wm-toolbar { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between; margin-top: 10px; }
+.wm-size { flex: 1 1 220px; max-width: 320px; }
+.wm-stage {
+  display: flex; justify-content: center; align-items: center; padding: 10px; border-radius: var(--radius-sm);
+  background-color: #fff; border: 1px solid var(--border); margin-top: 8px;
+  background-image: linear-gradient(45deg, #eef3f8 25%, transparent 25%), linear-gradient(-45deg, #eef3f8 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #eef3f8 75%), linear-gradient(-45deg, transparent 75%, #eef3f8 75%);
+  background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+.wm-stage canvas { display: block; max-width: 100%; touch-action: none; cursor: crosshair; border-radius: 4px; }
+.wm-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+#btnCompare { user-select: none; -webkit-user-select: none; }
+.mini-steps { margin: 0; padding-left: 20px; font-size: 13.5px; display: flex; flex-direction: column; gap: 4px; }

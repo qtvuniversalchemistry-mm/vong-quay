@@ -23,6 +23,8 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>',
     shield:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>',
+    eraser:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 21-4.3-4.3a1 1 0 0 1 0-1.4l10-10a1 1 0 0 1 1.4 0l5.6 5.6a1 1 0 0 1 0 1.4L11 21z"/><path d="M22 21H7M5 11l9 9"/></svg>',
     chevron:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
     qr:
@@ -94,6 +96,15 @@
       desc: "Xóa nhãn “AI info”, “Made with AI” (C2PA, XMP) và thông tin ẩn EXIF, GPS trong ảnh, giữ nguyên chất lượng.",
       href: "xoa-nhan-ai/",
       icon: "shield",
+      status: "live"
+    },
+    {
+      id: "xoa-watermark",
+      short: "Tô vùng cần xóa, tự vẽ lại nền",
+      name: "Xóa watermark trên ảnh",
+      desc: "Xóa watermark, logo, chữ, vật thể thừa trên ảnh của bạn: tô vùng cần xóa, công cụ tự vẽ lại phần nền.",
+      href: "xoa-watermark/",
+      icon: "eraser",
       status: "live"
     },
     {

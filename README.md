@@ -7,6 +7,7 @@ Website tĩnh (HTML/CSS/JS thuần, không cần cài đặt, không cần máy 
 - **Chuyển đổi & nén ảnh** (`chuyen-doi-anh/`): đổi JPG/PNG/WebP, chỉnh chất lượng, thu nhỏ kích thước, xử lý hàng loạt, tải .zip.
 - **Ảnh sang PDF** (`anh-sang-pdf/`): ghép nhiều ảnh thành PDF, kéo thả sắp xếp trang, khổ A4/Letter/vừa ảnh, lề, mức dung lượng.
 - **Xóa nhãn AI khỏi ảnh** (`xoa-nhan-ai/`): tùy chọn "Nén ảnh luôn"; gỡ C2PA/Content Credentials, XMP, IPTC, tham số AI, EXIF, GPS khỏi JPG/PNG/WebP mà không nén lại ảnh; định dạng khác chuyển sang JPG/PNG. Không xóa được dấu ẩn trong điểm ảnh (VD SynthID).
+- **Xóa watermark trên ảnh** (`xoa-watermark/`): tô (cọ / khung / tẩy) vùng chứa watermark, logo, chữ; vẽ lại nền bằng thuật toán PatchMatch chạy trong Web Worker (`assets/js/inpaint-worker.js`); hoàn tác, giữ để xem ảnh gốc, tải JPG/PNG. Kèm cảnh báo chỉ dùng cho ảnh có quyền chỉnh sửa.
 - **Tạo mã QR** (`tao-ma-qr/`): link, văn bản, WiFi, danh thiếp vCard, email, điện thoại, SMS; màu, nền trong suốt, kiểu điểm, mức sửa lỗi, lề, logo; tải PNG (512–4096 px), SVG, sao chép ảnh. Nhận link sẵn qua `?url=`.
 - **Tạo link UTM** (`tao-link-utm/`): gắn utm_source/medium/campaign/content/term, chuẩn hóa giá trị, chế độ nhiều link cho seeding, chép tất cả, xuất CSV, nút tạo mã QR. (Chưa có rút gọn link vì cần máy chủ.)
 - **Chuyển đổi & nén video** (`chuyen-doi-video/`): nén dung lượng, đổi MP4/WebM/MOV, hạ độ phân giải, bỏ âm thanh. Cần Chrome/Edge bản mới (dùng WebCodecs).
