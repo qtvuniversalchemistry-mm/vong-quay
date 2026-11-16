@@ -21,51 +21,34 @@
   // Vòng quay mẫu: hiển thị phía trên ô danh sách, bấm để thay tiêu đề + danh sách
   var TEMPLATES = [
     { id: "names", icon: "👥", title: "Vòng quay may mắn", label: "Danh sách tên", color: "#0099e5", items: SAMPLE },
-    { id: "breakfast", icon: "🍜", title: "Sáng nay ăn gì?", label: "Sáng nay ăn gì?", color: "#00a877",
-      items: ["Phở bò", "Bún chả", "Bánh mì", "Xôi xéo", "Bún bò Huế", "Bánh cuốn", "Cháo sườn", "Miến gà", "Hủ tiếu", "Cơm tấm", "Bún riêu", "Bánh bao"] },
-    { id: "lunch", icon: "🍱", title: "Trưa nay ăn gì?", label: "Trưa nay ăn gì?", color: "#f08c00",
-      items: ["Cơm văn phòng", "Cơm gà xối mỡ", "Cơm rang dưa bò", "Cơm tấm sườn", "Bún đậu mắm tôm", "Bún chả", "Bún cá", "Mì Quảng", "Phở trộn", "Miến trộn", "Bánh mì chảo", "Salad + ức gà"] },
-    { id: "dinner", icon: "🍲", title: "Tối nay ăn gì?", label: "Tối nay ăn gì?", color: "#d6336c",
-      items: ["Lẩu Thái", "Lẩu nấm", "Lẩu bò", "Nướng BBQ", "Hải sản", "Ốc", "Gà rán", "Pizza", "Sushi", "Mì cay", "Bánh xèo", "Cơm nhà nấu"] },
-    { id: "shirt", icon: "👕", title: "Hôm nay mặc áo màu gì?", label: "Chọn màu áo", color: "#e08a00",
-      items: ["Trắng", "Đen", "Xanh dương", "Xanh lá", "Đỏ", "Vàng", "Hồng", "Xám", "Be", "Tím", "Cam", "Xanh navy"] },
-    { id: "boy", icon: "👦", title: "Đặt tên con trai", label: "Đặt tên con trai", color: "#1d5fa6",
-      // Nguồn tham khảo: drpapie.com.vn/ten-cho-be-trai (chọn lọc theo nhóm ý nghĩa)
-      items: [
-        "Duy Anh", "Đức Anh", "Minh Anh", "Nhật Anh", "Tuấn Anh", "Việt Anh", "Anh Khoa", "Đăng Khoa", "Bách Khoa", "Minh Khôi",
-        "Đăng Khôi", "Nguyên Khôi", "Nhật Minh", "Quang Minh", "Bảo Minh", "Tuấn Kiệt", "Gia Kiệt", "Anh Kiệt", "Minh Trí", "Minh Tuệ",
-        "Mạnh Cường", "Quốc Cường", "Hùng Cường", "Tiến Dũng", "Anh Dũng", "Trung Kiên", "Duy Kiên", "Đức Mạnh", "Tiến Mạnh", "Minh Chí",
-        "Minh Đức", "Trung Đức", "Minh Hiếu", "Trung Hiếu", "Thiện Nhân", "Trọng Nghĩa", "Minh Quân", "Anh Quân", "Hoàng Quân", "Quang Trung",
-        "Gia Bảo", "Thiên Bảo", "Huy Hoàng", "Nhật Hoàng", "Quốc Hưng", "Gia Khánh", "Duy Khánh", "Phúc Lộc", "Minh Thành", "Tiến Thành",
-        "Bảo An", "Bình An", "Thiên An", "An Khang", "Minh Khang", "Gia Khang", "Hoàng Phúc", "Hồng Phúc", "Đức Phúc", "Thái Bình"
-      ] },
-    { id: "girl", icon: "👧", title: "Đặt tên con gái", label: "Đặt tên con gái", color: "#e0457b",
-      // Nguồn tham khảo: huggies.com.vn – Tên hay cho bé gái 2026 (chọn lọc)
-      items: [
-        "Minh Anh", "Gia Hân", "Ngọc Hân", "Khánh Vy", "Tường Vy", "Bảo Ngọc", "Minh Châu", "Thiên An", "An Nhiên", "Khánh An",
-        "Diệu Linh", "Khánh Linh", "Thùy Linh", "Tuệ Linh", "Gia Linh", "Mỹ Linh", "Tuệ Nhi", "Thảo Nhi", "Bảo Nhi", "An Nhi",
-        "Ngọc Nhi", "Uyển Nhi", "Phương Anh", "Quỳnh Anh", "Bảo Anh", "Mai Anh", "Vân Anh", "Tú Anh", "Ngọc Anh", "Phương Thảo",
-        "Thanh Thảo", "Thu Thảo", "Mỹ Duyên", "Thục Quyên", "Ngọc Lan", "Ngọc Trâm", "Huyền Trâm", "Bích Ngọc", "Khánh Ngọc", "Thiên Kim",
-        "Kim Ngân", "Hoàng Yến", "Hải Yến", "Nhật Hạ", "Thanh Hà", "Minh Hà", "Thu Thủy", "Thùy Dương", "Thanh Mai", "Xuân Mai",
-        "Mai Phương", "Nhã Phương", "Lan Phương", "Tú Uyên", "Nhã Uyên", "Diệp Chi", "Quỳnh Chi", "Hồng Nhung", "Hà My", "Diễm My"
-      ] },
-    { id: "luckymoney", icon: "🧧", title: "Lì xì năm mới", label: "Lì xì năm mới", color: "#e5484d",
-      items: ["10.000đ", "20.000đ", "50.000đ", "100.000đ", "200.000đ", "500.000đ", "Thêm 1 lượt quay", "Chúc may mắn lần sau"] },
+    { id: "livestream", icon: "🎥", title: "Minigame livestream", label: "Minigame livestream", color: "#e5484d",
+      items: ["Voucher 50.000đ", "Freeship đơn tiếp theo", "Quà tặng kèm", "Sản phẩm mẫu thử", "Giảm thêm 10%", "Thêm 1 lượt quay", "Chọn quà tùy ý", "Chúc may mắn lần sau"] },
     { id: "voucher", icon: "🎟️", title: "Vòng quay voucher", label: "Tặng voucher", color: "#00a3b8",
       items: ["Giảm 10%", "Giảm 20%", "Giảm 30%", "Giảm 50%", "Freeship", "Mua 1 tặng 1", "Quà tặng kèm", "Chúc may mắn lần sau"] },
-    { id: "gift", icon: "🎁", title: "Tặng quà gì cho bạn gái?", label: "Tặng quà gì cho bạn gái?", color: "#7c5cff",
+    { id: "promo", icon: "🏷️", title: "Chạy khuyến mãi kiểu gì?", label: "Ý tưởng khuyến mãi", color: "#f08c00",
+      items: ["Giảm giá theo %", "Đồng giá", "Mua 2 giảm thêm", "Combo tiết kiệm", "Tặng quà kèm đơn", "Freeship", "Flash sale giờ vàng", "Voucher shop", "Giảm giá theo bậc đơn hàng", "Ưu đãi đơn đầu tiên", "Tích điểm đổi quà", "Mua kèm giá sốc"] },
+    { id: "tiktok", icon: "📱", title: "Hôm nay quay video gì?", label: "Ý tưởng video bán hàng", color: "#1d5fa6",
+      items: ["Unbox sản phẩm", "Review thật", "So sánh trước – sau", "Hướng dẫn sử dụng", "Hậu trường đóng gói đơn", "Trả lời bình luận khách", "Mẹo hay liên quan sản phẩm", "Feedback khách hàng", "Bắt trend âm thanh", "Một ngày làm chủ shop", "Top sản phẩm bán chạy", "Cắt highlight livestream"] },
+    { id: "thanks", icon: "💝", title: "Quà tri ân khách hàng", label: "Quà tri ân khách hàng", color: "#7c5cff",
+      items: ["Phiếu mua hàng 100.000đ", "Voucher giảm 15% lần sau", "Freeship đơn tiếp theo", "Sản phẩm dùng thử", "Túi tote in logo", "Cốc in logo", "Sổ tay", "Thẻ thành viên VIP"] },
+    { id: "food", icon: "🍜", title: "Hôm nay ăn gì?", label: "Hôm nay ăn gì?", color: "#00a877",
+      items: ["Phở bò", "Bún chả", "Bánh mì", "Xôi xéo", "Bún bò Huế", "Bánh cuốn", "Cơm tấm sườn", "Cơm gà xối mỡ", "Cơm văn phòng", "Bún đậu mắm tôm",
+        "Mì Quảng", "Hủ tiếu", "Bánh xèo", "Lẩu Thái", "Lẩu nấm", "Nướng BBQ", "Hải sản", "Gà rán", "Pizza", "Sushi"] },
+    { id: "luckymoney", icon: "🧧", title: "Lì xì năm mới", label: "Lì xì năm mới", color: "#d6336c",
+      items: ["10.000đ", "20.000đ", "50.000đ", "100.000đ", "200.000đ", "500.000đ", "Thêm 1 lượt quay", "Chúc may mắn lần sau"] },
+    { id: "gift", icon: "🎁", title: "Tặng quà gì cho bạn gái?", label: "Tặng quà gì cho bạn gái?", color: "#c026d3",
       items: ["Hoa tươi", "Son môi", "Nước hoa", "Gấu bông", "Túi xách", "Đồng hồ", "Trang sức", "Sô-cô-la", "Váy đầm", "Bữa tối lãng mạn", "Album ảnh kỷ niệm", "Chuyến du lịch ngắn"] },
     { id: "weekend", icon: "🏕️", title: "Cuối tuần này làm gì?", label: "Hoạt động cuối tuần", color: "#00b884",
       items: ["Đi cà phê", "Xem phim", "Đi picnic", "Leo núi", "Đi bơi", "Nấu ăn ở nhà", "Đọc sách", "Chơi board game", "Đi karaoke", "Dọn dẹp nhà cửa", "Về thăm gia đình", "Ngủ nướng"] }
   ];
 
-  // "brand" đọc màu từ assets/css/theme.css (--wheel-1 ... --wheel-6)
+  // Bảng màu đầu tiên là mặc định. "brand" đọc màu từ assets/css/theme.css (--wheel-1 ... --wheel-6)
   var PALETTES = [
+    { id: "rainbow", name: "Cầu vồng", colors: ["#ef4444", "#f97316", "#eab308", "#22c55e", "#3b82f6", "#8b5cf6"] },
     { id: "brand", name: "MAINN Media", colors: null },
     { id: "sunset", name: "Hoàng hôn", colors: ["#ff5a1f", "#ff8a3d", "#ffb020", "#f43f5e", "#c026d3", "#7c3aed"] },
     { id: "ocean", name: "Đại dương", colors: ["#0f1b3d", "#1e40af", "#2563eb", "#0ea5e9", "#06b6d4", "#14b8a6"] },
     { id: "candy", name: "Kẹo ngọt", colors: ["#fda4af", "#fdba74", "#fde047", "#86efac", "#7dd3fc", "#c4b5fd"] },
-    { id: "rainbow", name: "Cầu vồng", colors: ["#ef4444", "#f97316", "#eab308", "#22c55e", "#3b82f6", "#8b5cf6"] },
     { id: "mono", name: "Tối giản", colors: ["#0f1b3d", "#ffffff", "#24345f", "#f1f3f9"] }
   ];
 
@@ -73,7 +56,7 @@
     title: "Vòng quay may mắn",
     text: SAMPLE.join("\n"),
     results: [],
-    settings: { duration: 6, sound: true, confetti: true, autoRemove: false, palette: "brand" }
+    settings: { duration: 6, sound: true, confetti: true, autoRemove: false, palette: "rainbow", paletteChosen: false }
   };
 
   /* ---------- DOM ---------- */
@@ -110,6 +93,8 @@
       if (typeof s.text === "string") out.text = s.text;
       if (Array.isArray(s.results)) out.results = s.results.slice(0, 500);
       if (s.settings) for (var k in out.settings) if (k in s.settings) out.settings[k] = s.settings[k];
+      // Bảng màu mặc định đổi sang "Cầu vồng": áp dụng cho người chưa từng tự chọn bảng màu
+      if (!out.settings.paletteChosen) out.settings.palette = "rainbow";
     }
     return out;
   }
@@ -745,6 +730,7 @@
       var b = e.target.closest("[data-pal]");
       if (!b) return;
       state.settings.palette = b.getAttribute("data-pal");
+      state.settings.paletteChosen = true;
       renderPalettes(); buildWheel(); render(); save();
     });
 
