@@ -124,27 +124,6 @@
       href: "tao-link-utm/",
       icon: "link",
       status: "live"
-    },
-    {
-      id: "word-sang-pdf",
-      name: "Word sang PDF",
-      desc: "Chuyển file Word (.docx) sang PDF.",
-      icon: "doc",
-      status: "soon"
-    },
-    {
-      id: "chia-nhom",
-      name: "Chia nhóm ngẫu nhiên",
-      desc: "Chia danh sách thành các nhóm đều nhau chỉ với một cú bấm.",
-      icon: "users",
-      status: "soon"
-    },
-    {
-      id: "boc-so",
-      name: "Bốc số ngẫu nhiên",
-      desc: "Chọn số ngẫu nhiên trong khoảng tùy chọn, không trùng lặp.",
-      icon: "dice",
-      status: "soon"
     }
   ];
 
