@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tạo mã QR miễn phí: link, WiFi, danh thiếp | MAINN Media</title>
+  <meta name="description" content="Tạo mã QR miễn phí cho link, WiFi, danh thiếp vCard, email, số điện thoại, SMS. Chỉnh màu, kiểu điểm, chèn logo, tải PNG, SVG. Mã QR tĩnh không hết hạn.">
+  <meta name="theme-color" content="#0a2540">
+  <meta property="og:title" content="Tạo mã QR miễn phí | MAINN Media">
+  <meta property="og:description" content="Mã QR tĩnh cho link, WiFi, danh thiếp; chèn logo, tải PNG/SVG, không hết hạn.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="../assets/img/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/site.js"></script>
+</head>
+<body data-page="tao-ma-qr">
+  <header data-site-header></header>
+
+  <main class="container">
+    <div class="tool-head">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../home/">Trang chủ</a><span>/</span><span>Tạo mã QR</span></nav>
+      <h1>Tạo mã QR miễn phí</h1>
+      <p>Mã QR tĩnh cho link, WiFi, danh thiếp, email, điện thoại. Dùng mãi mãi, không hết hạn.</p>
+    </div>
+
+    <div class="file-layout">
+      <section class="card file-main" aria-label="Nội dung mã QR">
+        <div class="field">
+          <span class="field__label">Loại nội dung</span>
+          <div class="seg" id="segType" role="group" aria-label="Loại nội dung"><button type="button" data-v="link" aria-pressed="true">Link</button><button type="button" data-v="text" aria-pressed="false">Văn bản</button><button type="button" data-v="wifi" aria-pressed="false">WiFi</button><button type="button" data-v="vcard" aria-pressed="false">Danh thiếp</button><button type="button" data-v="email" aria-pressed="false">Email</button><button type="button" data-v="tel" aria-pressed="false">Điện thoại</button><button type="button" data-v="sms" aria-pressed="false">SMS</button></div>
+        </div>
+        <div id="fields" class="qr-fields"></div>
+
+        <h2 class="panel-label" style="font-size:15px;margin:8px 0 0">Giao diện</h2>
+        <div class="qr-colors">
+          <label class="color-field"><input type="color" id="fgColor" value="#0a2540"><span>Màu mã</span></label>
+          <label class="color-field"><input type="color" id="bgColor" value="#ffffff"><span>Màu nền</span></label>
+          <label class="switch" style="border-top:0;flex:1 1 200px">
+            <span class="switch__text"><strong>Nền trong suốt</strong><span>Dùng khi đặt lên thiết kế có sẵn</span></span>
+            <input type="checkbox" id="setTransparent"><span class="switch__ui"></span>
+          </label>
+        </div>
+        <div class="alert" id="contrastWarn" hidden>Màu mã nên đậm hơn màu nền và tương phản rõ, nếu không nhiều điện thoại sẽ không quét được.</div>
+        <div class="field">
+          <span class="field__label">Kiểu điểm</span>
+          <div class="seg" id="segDot" role="group" aria-label="Kiểu điểm"><button type="button" data-v="square" aria-pressed="true">Vuông</button><button type="button" data-v="rounded" aria-pressed="false">Bo góc</button><button type="button" data-v="dots" aria-pressed="false">Chấm tròn</button></div>
+        </div>
+        <div class="field">
+          <span class="field__label">Mức sửa lỗi</span>
+          <div class="seg" id="segEc" role="group" aria-label="Mức sửa lỗi"><button type="button" data-v="L" aria-pressed="false">L (7%)</button><button type="button" data-v="M" aria-pressed="true">M (15%)</button><button type="button" data-v="Q" aria-pressed="false">Q (25%)</button><button type="button" data-v="H" aria-pressed="false">H (30%)</button></div>
+          <p class="field__help">Mức càng cao, mã càng chịu được trầy xước, che khuất (nhưng dày điểm hơn).</p>
+        </div>
+        <div class="field">
+          <span class="field__label">Lề (số ô)</span>
+          <div class="seg" id="segMargin" role="group" aria-label="Lề"><button type="button" data-v="0" aria-pressed="false">0</button><button type="button" data-v="1" aria-pressed="false">1</button><button type="button" data-v="2" aria-pressed="true">2</button><button type="button" data-v="3" aria-pressed="false">3</button><button type="button" data-v="4" aria-pressed="false">4</button><button type="button" data-v="6" aria-pressed="false">6</button><button type="button" data-v="8" aria-pressed="false">8</button></div>
+        </div>
+        <div class="field">
+          <span class="field__label">Logo ở giữa</span>
+          <div class="chip-row">
+            <button class="btn btn--sm" type="button" id="btnLogo">Chọn logo</button>
+            <button class="btn btn--sm btn--ghost" type="button" id="btnLogoClear" hidden>Bỏ logo</button>
+            <input type="file" id="logoInput" accept="image/*" hidden>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card file-side" aria-label="Xem trước">
+        <div class="qr-preview"><canvas id="qrCanvas" width="640" height="640" aria-label="Mã QR xem trước"></canvas></div>
+        <p class="field__help" id="qrInfo"></p>
+        <div class="alert alert--error" id="qrError" hidden></div>
+        <div class="field">
+          <span class="field__label">Kích thước PNG</span>
+          <div class="seg" id="segSize" role="group" aria-label="Kích thước PNG"><button type="button" data-v="512" aria-pressed="false">512</button><button type="button" data-v="1024" aria-pressed="true">1024</button><button type="button" data-v="2048" aria-pressed="false">2048</button><button type="button" data-v="4096" aria-pressed="false">4096</button></div>
+        </div>
+        <div class="qr-actions">
+          <button class="btn btn--primary btn--lg" type="button" id="btnPng" disabled>Tải PNG</button>
+          <button class="btn btn--lg" type="button" id="btnSvg" disabled>Tải SVG</button>
+        </div>
+        <button class="btn" type="button" id="btnCopy" disabled>Sao chép ảnh</button>
+        <div class="privacy-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Mã QR được tạo ngay trên trình duyệt, thông tin bạn nhập không gửi đi đâu.</span>
+        </div>
+      </aside>
+    </div>
+    <!-- ===== BÀI VIẾT SEO: nội dung mẫu, có thể sửa/viết lại toàn bộ phần <article> bên dưới ===== -->
+    <article class="card article" id="huong-dan">
+      <h2>Tạo mã QR miễn phí – cho link, WiFi, danh thiếp, có chèn logo</h2>
+      <p class="article__lead">Mã QR giúp khách hàng mở website, kết nối WiFi, lưu số điện thoại hay gửi email chỉ bằng một lần quét camera. Công cụ tạo mã QR của MAINN Media tạo mã QR tĩnh ngay trên trình duyệt: dùng mãi mãi, không hết hạn, không đi qua máy chủ trung gian, có thể đổi màu và chèn logo thương hiệu.</p>
+
+      <nav class="toc" aria-label="Mục lục">
+        <strong>Nội dung bài viết</strong>
+        <ol>
+          <li><a href="#cach-tao-ma-qr">Cách tạo mã QR</a></li>
+          <li><a href="#loai-ma-qr">Các loại mã QR hỗ trợ</a></li>
+          <li><a href="#qr-tinh-dong">Mã QR tĩnh và mã QR động khác nhau thế nào?</a></li>
+          <li><a href="#meo-quet">Mẹo để mã QR dễ quét</a></li>
+          <li><a href="#ung-dung-qr">Ứng dụng mã QR trong kinh doanh</a></li>
+          <li><a href="#cau-hoi-thuong-gap">Câu hỏi thường gặp</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="cach-tao-ma-qr">Cách tạo mã QR</h2>
+      <ol class="steps">
+        <li><strong>Chọn loại nội dung:</strong> link, văn bản, WiFi, danh thiếp, email, điện thoại hoặc SMS.</li>
+        <li><strong>Nhập thông tin:</strong> mã QR cập nhật ngay khi bạn gõ.</li>
+        <li><strong>Tùy chỉnh giao diện:</strong> màu mã, màu nền, nền trong suốt, kiểu điểm (vuông, bo góc, chấm tròn), lề và logo.</li>
+        <li><strong>Tải về:</strong> PNG từ 512 đến 4096 px, SVG để in khổ lớn, hoặc sao chép ảnh để dán thẳng vào thiết kế.</li>
+      </ol>
+
+      <h2 id="loai-ma-qr">Các loại mã QR hỗ trợ</h2>
+      <ul>
+        <li><strong>Link:</strong> dẫn tới website, landing page, gian hàng Shopee, TikTok Shop, fanpage.</li>
+        <li><strong>WiFi:</strong> khách quét là kết nối, không cần gõ mật khẩu. Phù hợp quán cà phê, showroom, văn phòng.</li>
+        <li><strong>Danh thiếp (vCard):</strong> quét để lưu tên, số điện thoại, email, công ty vào danh bạ.</li>
+        <li><strong>Email, điện thoại, SMS:</strong> mở sẵn thư, cuộc gọi hoặc tin nhắn với nội dung soạn trước.</li>
+        <li><strong>Văn bản:</strong> mã giảm giá, thông tin sản phẩm, lời chúc.</li>
+      </ul>
+
+      <h2 id="qr-tinh-dong">Mã QR tĩnh và mã QR động khác nhau thế nào?</h2>
+      <p><strong>Mã QR tĩnh</strong> chứa trực tiếp nội dung (đường link, mật khẩu WiFi…), không phụ thuộc máy chủ nào nên không bao giờ hết hạn. Nhược điểm: muốn đổi nội dung phải tạo và in lại mã mới.</p>
+      <p><strong>Mã QR động</strong> trỏ qua một đường link trung gian của nhà cung cấp, đổi được đích đến và đếm lượt quét, nhưng phụ thuộc dịch vụ đó và có thể bị khóa hoặc tính phí về sau. Công cụ này tạo mã QR tĩnh. Muốn đo lượt quét, hãy gắn UTM cho link bằng công cụ Tạo link UTM trước khi tạo mã.</p>
+
+      <h2 id="meo-quet">Mẹo để mã QR dễ quét</h2>
+      <ul>
+        <li>Giữ màu mã đậm trên nền sáng, độ tương phản càng cao càng tốt.</li>
+        <li>Khi chèn logo, công cụ tự dùng mức sửa lỗi H (30%). Logo nên đơn giản, rõ nét.</li>
+        <li>Để lề trắng quanh mã ít nhất 2 ô, nhất là khi đặt mã trên nền nhiều họa tiết.</li>
+        <li>Link càng ngắn, mã càng thưa và dễ quét.</li>
+        <li>Dùng file SVG khi in khổ lớn để không vỡ nét, và luôn quét thử bằng vài điện thoại trước khi in hàng loạt.</li>
+      </ul>
+
+      <h2 id="ung-dung-qr">Ứng dụng mã QR trong kinh doanh</h2>
+      <ul>
+        <li>In trên bao bì, thiệp cảm ơn để dẫn khách tới gian hàng, nhóm Zalo, trang đánh giá sản phẩm.</li>
+        <li>Đặt tại quầy, bàn ăn, standee sự kiện để khách theo dõi fanpage, nhận ưu đãi.</li>
+        <li>Chèn vào danh thiếp, catalogue, slide thuyết trình.</li>
+      </ul>
+
+      <h2 id="cau-hoi-thuong-gap">Câu hỏi thường gặp</h2>
+      <div class="faq">
+        <details>
+          <summary>Mã QR tạo ở đây có hết hạn không?</summary>
+          <p>Không. Đây là mã QR tĩnh, nội dung nằm trong chính mã nên dùng được mãi mãi.</p>
+        </details>
+        <details>
+          <summary>Làm sao tạo mã QR WiFi?</summary>
+          <p>Chọn WiFi, nhập tên mạng, mật khẩu và kiểu bảo mật. Khách mở camera điện thoại quét là kết nối được.</p>
+        </details>
+        <details>
+          <summary>Có chèn logo vào mã QR được không?</summary>
+          <p>Được. Bấm “Chọn logo”, công cụ đặt logo vào giữa và tự nâng mức sửa lỗi lên H để mã vẫn quét được.</p>
+        </details>
+        <details>
+          <summary>Nên tải PNG hay SVG?</summary>
+          <p>PNG phù hợp đăng mạng xã hội, chèn vào slide. SVG là ảnh vector, phóng to bao nhiêu cũng nét, phù hợp in ấn, banner, bao bì.</p>
+        </details>
+        <details>
+          <summary>Thông tin tôi nhập có được lưu lại không?</summary>
+          <p>Không. Mã QR được tạo ngay trong trình duyệt, nội dung bạn nhập (kể cả mật khẩu WiFi) không gửi đi đâu.</p>
+        </details>
+      </div>
+
+      <h2>Công cụ miễn phí khác</h2>
+      <div class="related">
+        <a class="related__item" href="../vong-quay/"><strong>Vòng quay may mắn</strong><span>Chọn ngẫu nhiên người trúng thưởng cho minigame, sự kiện</span></a>
+        <a class="related__item" href="../chuyen-doi-anh/"><strong>Chuyển đổi &amp; nén ảnh</strong><span>Đổi JPG, PNG, WebP và giảm dung lượng ảnh hàng loạt</span></a>
+        <a class="related__item" href="../anh-sang-pdf/"><strong>Ảnh sang PDF</strong><span>Ghép nhiều ảnh thành một file PDF</span></a>
+        <a class="related__item" href="../chuyen-doi-video/"><strong>Chuyển đổi &amp; nén video</strong><span>Giảm dung lượng, đổi định dạng MP4, WebM, MOV</span></a>
+        <a class="related__item" href="../xoa-nhan-ai/"><strong>Xóa nhãn AI khỏi ảnh</strong><span>Xóa nhãn AI info, C2PA và thông tin ẩn EXIF, GPS</span></a>
+        <a class="related__item" href="../tao-link-utm/"><strong>Tạo link UTM</strong><span>Gắn UTM, tạo link seeding hàng loạt, xuất CSV</span></a>
+      </div>
+
+      <div class="article-cta">
+        <div>
+          <strong>Cần đội ngũ làm marketing cho doanh nghiệp?</strong>
+          <span>MAINN Media đồng hành cùng doanh nghiệp trên Facebook, TikTok, Shopee: quảng cáo, nội dung, video và vận hành gian hàng.</span>
+        </div>
+        <a class="btn btn--primary" href="https://mainnmedia.com" target="_blank" rel="noopener">Tìm hiểu MAINN Media</a>
+      </div>
+    </article>
+  </main>
+
+  <footer data-site-footer></footer>
+
+  <script src="../assets/vendor/qrcode.js"></script>
+  <script src="../assets/js/filekit.js"></script>
+  <script src="../assets/js/tool-qr.js"></script>
+</body>
+</html>

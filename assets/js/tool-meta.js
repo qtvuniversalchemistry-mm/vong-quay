@@ -198,7 +198,23 @@
       }
       var mime = { jpeg: "image/jpeg", png: "image/png", webp: "image/webp" }[kind];
       return { blob: new Blob([out], { type: mime }), name: file.name, found: found, converted: false };
-    });
+    }).then(function (r) { return opts.compress ? compress(r) : r; });
+  }
+
+  /* ---------- Nén ảnh luôn (tùy chọn) ---------- */
+  var EXT = { "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" };
+  function compress(r) {
+    var type = opts.format === "same" ? (EXT[r.blob.type] ? r.blob.type : "image/jpeg") : opts.format;
+    return F.loadImage(r.blob).then(function (img) {
+      var c = F.drawToCanvas(img, opts.maxEdge, type === "image/jpeg");
+      if (img.close) img.close();
+      return F.canvasToBlob(c, type, type === "image/png" ? undefined : opts.quality / 100).then(function (b) {
+        c.width = c.height = 0;
+        // Nếu nén xong lại nặng hơn (và không đổi kích thước/định dạng) thì giữ bản đã xóa nhãn
+        if (b.size >= r.blob.size && type === r.blob.type && !opts.maxEdge) return r;
+        return { blob: b, name: F.withExt(r.name, EXT[type]), found: r.found, converted: r.converted, compressed: true };
+      });
+    }).catch(function () { return r; });
   }
 
   /* ---------- Giao diện ---------- */
@@ -207,7 +223,8 @@
     list: $("fileList"), listHead: $("listHead"), listTitle: $("listTitle"), clearAll: $("btnClearAll"),
     zip: $("btnZip"), zipText: $("btnZipText"), stats: $("stats")
   };
-  var items = [], uid = 0, running = false;
+  var items = [], uid = 0, running = false, generation = 0;
+  var opts = Object.assign({ compress: false, format: "same", quality: 82, maxEdge: 0 }, M.storage.get("mainn.meta.opts", {}));
 
   function badges(found) {
     var keys = Object.keys(LABELS).filter(function (k) { return found[k]; });
@@ -223,7 +240,7 @@
     else if (it.status === "error") meta = '<span class="status-err">Không đọc được ảnh này.</span>';
     else {
       meta = "<span>" + F.formatBytes(it.file.size) + " → <strong>" + F.formatBytes(r.blob.size) + "</strong></span>" +
-        (r.converted ? "<span>Đã chuyển sang " + r.name.split(".").pop().toUpperCase() + "</span>" : "<span>Giữ nguyên chất lượng ảnh</span>") +
+        (r.compressed ? '<span class="saving' + (r.blob.size > it.file.size ? " is-worse" : "") + '">' + F.percentChange(it.file.size, r.blob.size) + "</span><span>Đã nén</span>" : r.converted ? "<span>Đã chuyển sang " + r.name.split(".").pop().toUpperCase() + "</span>" : "<span>Giữ nguyên chất lượng ảnh</span>") +
         '<div class="tags">' + (Object.keys(r.found).length ? '<span class="tags__label">Đã xóa:</span>' : "") + badges(r.found) + "</div>";
     }
     return '<img class="file-row__thumb" src="' + it.thumb + '" alt="">' +
@@ -259,15 +276,46 @@
   function run() {
     if (running) return;
     running = true;
+    var gen = generation;
     (function next() {
+      if (gen !== generation) { running = false; return run(); }
       var it = items.filter(function (x) { return x.status === "pending"; })[0];
       if (!it) { running = false; renderStats(); return; }
       it.status = "working"; renderRow(it);
-      processFile(it.file).then(function (r) { it.result = r; it.status = "done"; })
+      processFile(it.file).then(function (r) { it.result = r; it.status = gen === generation ? "done" : "pending"; })
         .catch(function () { it.status = "error"; })
         .then(function () { renderRow(it); renderStats(); setTimeout(next, 0); });
     })();
   }
+
+  /* ---------- Tùy chọn nén ---------- */
+  var oc = { toggle: $("setCompress"), box: $("compressOpts"), segFormat: $("segFormat"), segSize: $("segSize"), quality: $("quality"), qualityOut: $("qualityOut") };
+  function paintSeg(seg, v) {
+    Array.prototype.forEach.call(seg.querySelectorAll("button"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-v")) === String(v)); });
+  }
+  function paintOpts() {
+    oc.toggle.checked = !!opts.compress; oc.box.hidden = !opts.compress;
+    paintSeg(oc.segFormat, opts.format); paintSeg(oc.segSize, opts.maxEdge);
+    oc.quality.value = opts.quality; oc.qualityOut.textContent = opts.quality;
+  }
+  var optTimer;
+  function optsChanged() {
+    M.storage.set("mainn.meta.opts", opts); paintOpts();
+    clearTimeout(optTimer);
+    optTimer = setTimeout(function () {
+      items.forEach(function (it) { if (it.status !== "error") it.status = "pending"; });
+      generation++; render(); run();
+    }, 250);
+  }
+  oc.toggle.addEventListener("change", function () { opts.compress = oc.toggle.checked; optsChanged(); });
+  oc.quality.addEventListener("input", function () { opts.quality = Number(oc.quality.value); optsChanged(); });
+  [[oc.segFormat, "format", String], [oc.segSize, "maxEdge", Number]].forEach(function (c) {
+    c[0].addEventListener("click", function (e) {
+      var b = e.target.closest("button[data-v]"); if (!b) return;
+      opts[c[1]] = c[2](b.getAttribute("data-v")); optsChanged();
+    });
+  });
+  paintOpts();
 
   function addFiles(files) {
     var room = MAX_FILES - items.length;

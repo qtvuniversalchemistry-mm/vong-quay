@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tạo link UTM miễn phí, link seeding hàng loạt | MAINN Media</title>
+  <meta name="description" content="Tạo link UTM miễn phí để đo hiệu quả Facebook, Zalo, TikTok, seeding trong Google Analytics. Tạo link riêng cho từng group seeding, xuất CSV, tạo mã QR.">
+  <meta name="theme-color" content="#0a2540">
+  <meta property="og:title" content="Tạo link UTM | MAINN Media">
+  <meta property="og:description" content="Gắn UTM, tạo link riêng cho từng group seeding, xuất CSV, miễn phí.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="../assets/img/favicon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/theme.css">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <script src="../assets/js/site.js"></script>
+</head>
+<body data-page="tao-link-utm">
+  <header data-site-header></header>
+
+  <main class="container">
+    <div class="tool-head">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../home/">Trang chủ</a><span>/</span><span>Tạo link UTM</span></nav>
+      <h1>Tạo link UTM</h1>
+      <p>Gắn UTM để biết khách đến từ kênh, chiến dịch, group seeding nào trong Google Analytics.</p>
+    </div>
+
+    <div class="file-layout">
+      <section class="card file-main" aria-label="Tạo link UTM">
+        <div class="seg" id="segMode" role="group" aria-label="Chế độ"><button type="button" data-v="single" aria-pressed="true">1 link</button><button type="button" data-v="batch" aria-pressed="false">Nhiều link cho seeding</button></div>
+        <div class="field">
+          <label for="dest">Link đích</label>
+          <input class="input" id="dest" type="url" inputmode="url" placeholder="https://mainnmedia.com/dich-vu">
+          <p class="field__help">Thiếu https:// công cụ tự thêm. Tham số có sẵn trong link được giữ nguyên.</p>
+        </div>
+        <div class="utm-grid">
+          <div class="field">
+            <label for="utm_source">Nguồn · utm_source <span class="req">*</span></label>
+            <input class="input" id="utm_source" list="dlSource" placeholder="facebook">
+            <div class="chip-row" data-for="utm_source"></div>
+          </div>
+          <div class="field">
+            <label for="utm_medium">Kênh · utm_medium <span class="req">*</span></label>
+            <input class="input" id="utm_medium" list="dlMedium" placeholder="seeding">
+            <div class="chip-row" data-for="utm_medium"></div>
+          </div>
+          <div class="field">
+            <label for="utm_campaign">Chiến dịch · utm_campaign <span class="req">*</span></label>
+            <input class="input" id="utm_campaign" placeholder="tet-2027">
+          </div>
+          <div class="field" id="fieldContent">
+            <label for="utm_content">Nội dung · utm_content</label>
+            <input class="input" id="utm_content" placeholder="VD: tên group, mẫu quảng cáo">
+          </div>
+          <div class="field">
+            <label for="utm_term">Từ khóa · utm_term</label>
+            <input class="input" id="utm_term" placeholder="Thường để trống">
+          </div>
+        </div>
+        <label class="switch">
+          <span class="switch__text"><strong>Chuẩn hóa giá trị</strong><span>Chữ thường, bỏ dấu, thay khoảng trắng bằng “-” để báo cáo không bị tách dòng</span></span>
+          <input type="checkbox" id="setNormalize" checked><span class="switch__ui"></span>
+        </label>
+        <div class="field" id="fieldBatch" hidden>
+          <label for="places">Danh sách nơi đăng</label>
+          <textarea class="entries" id="places" style="min-height:160px" placeholder="Mỗi dòng 1 nơi đăng, VD:&#10;Hội mẹ bỉm sữa Hà Nội&#10;Group review mỹ phẩm&#10;Fanpage chính"></textarea>
+          <p class="field__help">Mỗi dòng thành utm_content của một link. Dán thẳng cột từ Google Sheets / Excel được.</p>
+        </div>
+      </section>
+
+      <aside class="card file-side" aria-label="Kết quả">
+        <div class="field">
+          <span class="field__label" id="resultTitle">Link đã gắn UTM</span>
+          <div class="utm-result" id="single"><span class="muted">Nhập link đích, nguồn, kênh và chiến dịch.</span></div>
+          <div class="utm-actions" id="singleActions">
+            <button class="btn btn--primary" type="button" id="btnCopy" disabled>Sao chép link</button>
+            <a class="btn" id="btnOpen" target="_blank" rel="noopener" aria-disabled="true">Mở thử</a>
+            <a class="btn" id="btnQr" aria-disabled="true">Tạo mã QR</a>
+          </div>
+          <div id="batch" hidden>
+            <ul class="utm-list" id="batchList"></ul>
+            <div class="utm-actions">
+              <button class="btn btn--primary" type="button" id="btnCopyAll" disabled>Chép tất cả</button>
+              <button class="btn" type="button" id="btnCsv" disabled>Tải CSV</button>
+            </div>
+          </div>
+        </div>
+        <div class="alert" id="utmWarn" hidden></div>
+        <div class="alert">
+          <strong>Cần link ngắn?</strong> Công cụ này tạo link UTM đầy đủ. Rút gọn link cần máy chủ chuyển hướng riêng, chưa có trong bộ công cụ.
+        </div>
+        <div class="privacy-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Link được tạo ngay trên trình duyệt. Giá trị nguồn, kênh, chiến dịch lần trước được nhớ trên máy bạn.</span>
+        </div>
+      </aside>
+    </div>
+    <!-- ===== BÀI VIẾT SEO: nội dung mẫu, có thể sửa/viết lại toàn bộ phần <article> bên dưới ===== -->
+    <article class="card article" id="huong-dan">
+      <h2>Tạo link UTM miễn phí – đo chính xác khách đến từ kênh nào</h2>
+      <p class="article__lead">Khi chạy quảng cáo, đi seeding hay gửi tin nhắn Zalo, bạn cần biết kênh nào thực sự mang về khách. Gắn UTM vào link là cách đơn giản để Google Analytics phân biệt nguồn truy cập. Công cụ của MAINN Media giúp tạo link UTM chuẩn chỉ trong vài giây, và tạo hàng loạt link riêng cho từng group seeding.</p>
+
+      <nav class="toc" aria-label="Mục lục">
+        <strong>Nội dung bài viết</strong>
+        <ol>
+          <li><a href="#utm-la-gi">UTM là gì?</a></li>
+          <li><a href="#cach-tao-utm">Cách tạo link UTM</a></li>
+          <li><a href="#quy-uoc-utm">Quy ước đặt tên UTM cho cả đội</a></li>
+          <li><a href="#utm-seeding">Tạo link riêng cho từng group seeding</a></li>
+          <li><a href="#xem-bao-cao">Xem kết quả trong Google Analytics</a></li>
+          <li><a href="#cau-hoi-thuong-gap">Câu hỏi thường gặp</a></li>
+        </ol>
+      </nav>
+
+      <h2 id="utm-la-gi">UTM là gì?</h2>
+      <p>UTM là các tham số gắn vào cuối đường link, ví dụ <code>?utm_source=facebook&amp;utm_medium=seeding&amp;utm_campaign=tet-2027</code>. Khi khách bấm link, Google Analytics đọc các tham số này để ghi nhận lượt truy cập đến từ nền tảng nào, hình thức nào, chiến dịch nào.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Tham số</th><th>Ý nghĩa</th><th>Ví dụ</th></tr></thead>
+          <tbody>
+            <tr><td><strong>utm_source</strong></td><td>Nền tảng, nơi đăng</td><td>facebook, zalo, tiktok, google</td></tr>
+            <tr><td><strong>utm_medium</strong></td><td>Hình thức tiếp cận</td><td>seeding, social, cpc, email, qr</td></tr>
+            <tr><td><strong>utm_campaign</strong></td><td>Tên chiến dịch</td><td>tet-2027, sale-11-11</td></tr>
+            <tr><td><strong>utm_content</strong></td><td>Phân biệt bài đăng, group, mẫu quảng cáo</td><td>hoi-me-bim-sua-ha-noi</td></tr>
+            <tr><td><strong>utm_term</strong></td><td>Từ khóa (ít dùng)</td><td>dich-vu-seo</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="cach-tao-utm">Cách tạo link UTM</h2>
+      <ol class="steps">
+        <li><strong>Dán link đích</strong> – trang bạn muốn khách truy cập. Thiếu https:// công cụ tự thêm.</li>
+        <li><strong>Chọn nguồn và kênh:</strong> bấm gợi ý có sẵn hoặc tự nhập.</li>
+        <li><strong>Nhập tên chiến dịch</strong> và nội dung nếu cần.</li>
+        <li><strong>Sao chép link</strong>, mở thử, hoặc bấm “Tạo mã QR” để in lên ấn phẩm.</li>
+      </ol>
+
+      <h2 id="quy-uoc-utm">Quy ước đặt tên UTM cho cả đội</h2>
+      <p>Báo cáo phân biệt chữ hoa, chữ thường: “Facebook”, “facebook” và “fb” sẽ thành 3 dòng khác nhau. Hãy thống nhất quy ước:</p>
+      <ul>
+        <li>Viết thường, không dấu, nối bằng dấu gạch ngang (bật “Chuẩn hóa giá trị” để công cụ tự làm).</li>
+        <li>utm_source là tên nền tảng, utm_medium là hình thức: seeding, cpc (quảng cáo trả tiền), email, qr.</li>
+        <li>utm_campaign đặt theo chương trình và thời gian, ví dụ <code>sale-12-12-2026</code>.</li>
+        <li>Lưu danh sách quy ước vào tài liệu chung của team.</li>
+      </ul>
+
+      <h2 id="utm-seeding">Tạo link riêng cho từng group seeding</h2>
+      <p>Khi seeding, mỗi group nên có một link riêng để so sánh group nào mang về nhiều khách nhất. Chọn chế độ <em>Nhiều link cho seeding</em>, dán danh sách group (mỗi dòng một nơi, dán thẳng từ Google Sheets được). Công cụ tạo sẵn mỗi nơi một link với utm_content theo tên group, rồi bạn chép tất cả hoặc tải file CSV để giao việc cho đội seeding.</p>
+
+      <h2 id="xem-bao-cao">Xem kết quả trong Google Analytics</h2>
+      <p>Trong Google Analytics 4, vào báo cáo <em>Thu nạp lưu lượng truy cập</em> (Traffic acquisition), chọn thứ nguyên phiên như nguồn/phương tiện hoặc chiến dịch. Muốn xem theo utm_content, thêm thứ nguyên phụ tương ứng hoặc tạo báo cáo khám phá. Tên menu có thể thay đổi theo phiên bản Google Analytics.</p>
+
+      <h2 id="cau-hoi-thuong-gap">Câu hỏi thường gặp</h2>
+      <div class="faq">
+        <details>
+          <summary>Gắn UTM có làm link chạy chậm hay ảnh hưởng SEO không?</summary>
+          <p>Không làm chậm. Với SEO, nên dùng link UTM cho quảng cáo, seeding, email; không gắn UTM vào liên kết nội bộ trong chính website.</p>
+        </details>
+        <details>
+          <summary>Link UTM có bị lỗi nếu trang đích đã có dấu ? không?</summary>
+          <p>Không. Công cụ giữ nguyên các tham số có sẵn trong link và thêm UTM đúng chuẩn.</p>
+        </details>
+        <details>
+          <summary>Có cần nhập đủ 5 tham số không?</summary>
+          <p>Nên có utm_source, utm_medium và utm_campaign. utm_content dùng khi cần phân biệt bài đăng, group; utm_term thường để trống.</p>
+        </details>
+        <details>
+          <summary>Công cụ có rút gọn link không?</summary>
+          <p>Chưa. Công cụ tạo link UTM đầy đủ. Rút gọn link cần máy chủ chuyển hướng riêng; nếu cần link ngắn, bạn có thể dùng thêm dịch vụ rút gọn link.</p>
+        </details>
+        <details>
+          <summary>Giá trị tôi nhập có được lưu không?</summary>
+          <p>Nguồn, kênh, chiến dịch lần trước được nhớ ngay trên trình duyệt của bạn để lần sau đỡ phải gõ lại, không gửi lên máy chủ.</p>
+        </details>
+      </div>
+
+      <h2>Công cụ miễn phí khác</h2>
+      <div class="related">
+        <a class="related__item" href="../vong-quay/"><strong>Vòng quay may mắn</strong><span>Chọn ngẫu nhiên người trúng thưởng cho minigame, sự kiện</span></a>
+        <a class="related__item" href="../chuyen-doi-anh/"><strong>Chuyển đổi &amp; nén ảnh</strong><span>Đổi JPG, PNG, WebP và giảm dung lượng ảnh hàng loạt</span></a>
+        <a class="related__item" href="../anh-sang-pdf/"><strong>Ảnh sang PDF</strong><span>Ghép nhiều ảnh thành một file PDF</span></a>
+        <a class="related__item" href="../chuyen-doi-video/"><strong>Chuyển đổi &amp; nén video</strong><span>Giảm dung lượng, đổi định dạng MP4, WebM, MOV</span></a>
+        <a class="related__item" href="../xoa-nhan-ai/"><strong>Xóa nhãn AI khỏi ảnh</strong><span>Xóa nhãn AI info, C2PA và thông tin ẩn EXIF, GPS</span></a>
+        <a class="related__item" href="../tao-ma-qr/"><strong>Tạo mã QR</strong><span>Link, WiFi, danh thiếp, chèn logo, tải PNG/SVG</span></a>
+      </div>
+
+      <div class="article-cta">
+        <div>
+          <strong>Cần đội ngũ làm marketing cho doanh nghiệp?</strong>
+          <span>MAINN Media đồng hành cùng doanh nghiệp trên Facebook, TikTok, Shopee: quảng cáo, nội dung, video và vận hành gian hàng.</span>
+        </div>
+        <a class="btn btn--primary" href="https://mainnmedia.com" target="_blank" rel="noopener">Tìm hiểu MAINN Media</a>
+      </div>
+    </article>
+  </main>
+
+  <datalist id="dlSource"><option value="facebook"><option value="zalo"><option value="tiktok"><option value="youtube"><option value="google"><option value="instagram"><option value="threads"><option value="shopee"><option value="email"></datalist>
+  <datalist id="dlMedium"><option value="seeding"><option value="social"><option value="cpc"><option value="email"><option value="referral"><option value="banner"><option value="qr"></datalist>
+
+  <footer data-site-footer></footer>
+
+  <script src="../assets/js/filekit.js"></script>
+  <script src="../assets/js/tool-utm.js"></script>
+</body>
+</html>

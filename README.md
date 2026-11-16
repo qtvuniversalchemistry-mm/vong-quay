@@ -6,7 +6,9 @@ Website tĩnh (HTML/CSS/JS thuần, không cần cài đặt, không cần máy 
 - **Vòng quay may mắn** (`vong-quay/`): nhập danh sách, quay ngẫu nhiên, xem lịch sử kết quả.
 - **Chuyển đổi & nén ảnh** (`chuyen-doi-anh/`): đổi JPG/PNG/WebP, chỉnh chất lượng, thu nhỏ kích thước, xử lý hàng loạt, tải .zip.
 - **Ảnh sang PDF** (`anh-sang-pdf/`): ghép nhiều ảnh thành PDF, kéo thả sắp xếp trang, khổ A4/Letter/vừa ảnh, lề, mức dung lượng.
-- **Xóa nhãn AI khỏi ảnh** (`xoa-nhan-ai/`): gỡ C2PA/Content Credentials, XMP, IPTC, tham số AI, EXIF, GPS khỏi JPG/PNG/WebP mà không nén lại ảnh; định dạng khác chuyển sang JPG/PNG. Không xóa được dấu ẩn trong điểm ảnh (VD SynthID).
+- **Xóa nhãn AI khỏi ảnh** (`xoa-nhan-ai/`): tùy chọn "Nén ảnh luôn"; gỡ C2PA/Content Credentials, XMP, IPTC, tham số AI, EXIF, GPS khỏi JPG/PNG/WebP mà không nén lại ảnh; định dạng khác chuyển sang JPG/PNG. Không xóa được dấu ẩn trong điểm ảnh (VD SynthID).
+- **Tạo mã QR** (`tao-ma-qr/`): link, văn bản, WiFi, danh thiếp vCard, email, điện thoại, SMS; màu, nền trong suốt, kiểu điểm, mức sửa lỗi, lề, logo; tải PNG (512–4096 px), SVG, sao chép ảnh. Nhận link sẵn qua `?url=`.
+- **Tạo link UTM** (`tao-link-utm/`): gắn utm_source/medium/campaign/content/term, chuẩn hóa giá trị, chế độ nhiều link cho seeding, chép tất cả, xuất CSV, nút tạo mã QR. (Chưa có rút gọn link vì cần máy chủ.)
 - **Chuyển đổi & nén video** (`chuyen-doi-video/`): nén dung lượng, đổi MP4/WebM/MOV, hạ độ phân giải, bỏ âm thanh. Cần Chrome/Edge bản mới (dùng WebCodecs).
 
 Tất cả công cụ xử lý file đều chạy **ngay trong trình duyệt**, file không được tải lên máy chủ. Thư viện bên thứ ba nằm trong `assets/vendor/` (xem `assets/vendor/LICENSES.md`).

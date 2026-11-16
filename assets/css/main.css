@@ -62,8 +62,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .brand__sub { font-size: 11px; line-height: 1.25; color: var(--text-muted); letter-spacing: 0.02em; font-weight: 600; }
 .site-footer__brand img { height: 32px; width: auto; margin-bottom: 6px; }
 
-.nav { display: flex; gap: 4px; margin-left: 16px; }
-.nav a {
+.nav { display: flex; gap: 4px; margin-left: 16px; align-items: center; }
+.nav a, .nav__tools {
   text-decoration: none; padding: 8px 12px; border-radius: 999px;
   color: var(--text-muted); font-weight: 600; font-size: 14px; white-space: nowrap;
   transition: background 0.15s, color 0.15s;
@@ -574,17 +574,6 @@ input[type="range"] { flex: 1; accent-color: var(--brand); }
 .alert--error { background: color-mix(in srgb, #ef4444 12%, var(--surface)); border-color: color-mix(in srgb, #ef4444 40%, transparent); }
 [hidden] { display: none !important; }
 
-/* Menu trên điện thoại */
-.menu-btn { display: none; }
-@media (max-width: 1180px) {
-  .menu-btn { display: inline-flex; }
-  .nav {
-    display: none; position: absolute; top: 64px; left: 0; right: 0; margin: 0; padding: 8px 16px 14px;
-    flex-direction: column; gap: 2px; background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-lg);
-  }
-  .nav.is-open { display: flex; }
-  .nav a { border-radius: 10px; padding: 11px 12px; }
-}
 
 /* =========================================================
    Bài viết hướng dẫn / SEO bên dưới mỗi công cụ
@@ -694,3 +683,84 @@ input[type="range"] { flex: 1; accent-color: var(--brand); }
   display: grid; place-items: center; font-size: 11px; font-weight: 800;
   background: var(--brand-gradient); color: var(--on-brand);
 }
+
+/* Menu "Công cụ" */
+.nav__tools {
+  border: 0; background: transparent; cursor: pointer; font: inherit; font-weight: 600; font-size: 14px;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.nav__tools svg { width: 16px; height: 16px; transition: transform 0.2s; }
+.nav__tools:hover { color: var(--text); background: var(--surface-2); }
+.nav__tools[aria-expanded="true"] svg { transform: rotate(180deg); }
+.nav__tools[aria-expanded="true"], .nav__tools[data-active="true"] { color: var(--brand-text); background: var(--brand-soft); }
+.tools-menu {
+  position: absolute; left: 0; right: 0; top: 100%;
+  background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-lg);
+  padding: 14px 0 18px; max-height: calc(100vh - 64px); overflow: auto;
+}
+.tools-menu__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 6px; }
+.tools-menu__item {
+  display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 12px; text-decoration: none; color: inherit;
+}
+.tools-menu__item:hover { background: var(--surface-2); }
+.tools-menu__item[aria-current="page"] { background: var(--brand-soft); }
+.tools-menu__item strong { display: block; font-size: 14.5px; }
+.tools-menu__item small { display: block; font-size: 12.5px; color: var(--text-muted); }
+.tools-menu__icon {
+  width: 40px; height: 40px; flex-shrink: 0; border-radius: 12px; display: grid; place-items: center;
+  background: var(--brand-soft); color: var(--brand-text);
+}
+.tools-menu__icon svg { width: 22px; height: 22px; }
+@media (max-width: 720px) {
+  .nav { margin-left: auto; }
+  .nav__home { display: none; }
+  .header-actions { margin-left: 4px; }
+}
+.site-footer__tools {
+  display: flex; flex-wrap: wrap; gap: 6px 16px; padding-bottom: 22px; font-size: 13.5px; color: #93a8bf;
+}
+.site-footer__tools a { font-weight: 500 !important; color: #c9d6e6 !important; }
+.site-footer__tools a:hover { color: var(--brand-green) !important; }
+
+/* Tạo mã QR */
+.qr-fields { display: flex; flex-direction: column; gap: 12px; }
+.qr-fields textarea.input { resize: vertical; min-height: 96px; }
+.qr-colors { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.color-field {
+  display: inline-flex; align-items: center; gap: 10px; padding: 6px 12px 6px 6px; border-radius: 12px;
+  border: 1px solid var(--border); background: var(--surface-2); font-weight: 700; font-size: 14px; cursor: pointer;
+}
+.color-field input { width: 36px; height: 36px; border: 0; padding: 0; border-radius: 8px; background: none; cursor: pointer; }
+.color-field input::-webkit-color-swatch-wrapper { padding: 0; }
+.color-field input::-webkit-color-swatch { border: 1px solid var(--border); border-radius: 8px; }
+.qr-preview {
+  border-radius: var(--radius-sm); padding: 12px; border: 1px solid var(--border);
+  background-color: #fff;
+  background-image: linear-gradient(45deg, #eef3f8 25%, transparent 25%), linear-gradient(-45deg, #eef3f8 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #eef3f8 75%), linear-gradient(-45deg, transparent 75%, #eef3f8 75%);
+  background-size: 16px 16px; background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+.qr-preview canvas { width: 100%; height: auto; display: block; aspect-ratio: 1; }
+.qr-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+/* Tạo link UTM */
+.utm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.utm-grid .chip-row { gap: 2px; }
+.utm-grid .chip-row .btn { padding: 3px 8px; font-size: 12px; color: var(--text-muted); }
+.req { color: #d92d20; }
+.utm-result {
+  padding: 12px; border-radius: var(--radius-sm); background: var(--surface-2); border: 1px solid var(--border);
+  min-height: 64px; display: flex; align-items: center;
+}
+.utm-link { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; word-break: break-all; line-height: 1.6; }
+.utm-q { color: var(--brand-text); font-weight: 600; }
+.utm-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.utm-actions .btn[aria-disabled="true"] { opacity: 0.5; pointer-events: none; }
+.utm-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; max-height: 460px; overflow: auto; }
+.utm-list li:not(.empty) {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 8px; align-items: center;
+  padding: 10px; border-radius: var(--radius-sm); background: var(--surface-2); border: 1px solid var(--border);
+}
+.utm-list__place { font-weight: 700; font-size: 13.5px; grid-column: 1 / -1; }
+.utm-list .utm-link { font-size: 12px; }
+.article code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em; padding: 1px 6px; border-radius: 6px; background: var(--surface-2); word-break: break-all; }

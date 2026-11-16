@@ -40,6 +40,39 @@
       </section>
 
       <aside class="card file-side" aria-label="Thông tin">
+        <label class="switch" style="border-top:0;padding-top:0">
+          <span class="switch__text"><strong>Nén ảnh luôn</strong><span>Xóa nhãn AI và giảm dung lượng trong một bước</span></span>
+          <input type="checkbox" id="setCompress"><span class="switch__ui"></span>
+        </label>
+        <div id="compressOpts" hidden>
+          <div class="field">
+            <span class="field__label">Định dạng</span>
+            <div class="seg" id="segFormat" role="group" aria-label="Định dạng">
+              <button type="button" data-v="same" aria-pressed="true">Giữ nguyên</button>
+              <button type="button" data-v="image/webp" aria-pressed="false">WebP</button>
+              <button type="button" data-v="image/jpeg" aria-pressed="false">JPG</button>
+            </div>
+          </div>
+          <div class="field" style="margin-top:12px">
+            <label for="quality">Chất lượng</label>
+            <div class="range-row">
+              <input type="range" id="quality" min="40" max="100" step="2" value="82">
+              <output id="qualityOut" for="quality">82</output>
+            </div>
+          </div>
+          <div class="field" style="margin-top:12px">
+            <span class="field__label">Cạnh dài tối đa</span>
+            <div class="seg" id="segSize" role="group" aria-label="Cạnh dài tối đa">
+              <button type="button" data-v="0" aria-pressed="true">Giữ nguyên</button>
+              <button type="button" data-v="2560" aria-pressed="false">2560</button>
+              <button type="button" data-v="2048" aria-pressed="false">2048</button>
+              <button type="button" data-v="1920" aria-pressed="false">1920</button>
+              <button type="button" data-v="1280" aria-pressed="false">1280</button>
+              <button type="button" data-v="1080" aria-pressed="false">1080</button>
+            </div>
+          </div>
+        </div>
+
         <div class="field">
           <span class="field__label">Công cụ sẽ xóa</span>
           <ul class="check-list">
@@ -99,6 +132,7 @@
       <ol class="steps">
         <li><strong>Thêm ảnh:</strong> kéo thả, bấm “Chọn file” hoặc dán ảnh bằng <kbd>Ctrl</kbd> + <kbd>V</kbd>. Có thể chọn nhiều ảnh.</li>
         <li><strong>Xem kết quả kiểm tra:</strong> mỗi ảnh hiện danh sách thông tin ẩn đã tìm thấy và đã xóa.</li>
+        <li><strong>Muốn ảnh nhẹ hơn:</strong> bật “Nén ảnh luôn”, chọn WebP hoặc JPG, chất lượng và cạnh dài tối đa.</li>
         <li><strong>Tải về:</strong> tải từng ảnh hoặc bấm “Tải tất cả (.zip)”.</li>
       </ol>
 
@@ -133,6 +167,10 @@
           <p>Không chắc chắn. Một số nền tảng dùng dấu ẩn trong điểm ảnh hoặc công nghệ nhận diện riêng mà việc xóa metadata không tác động được.</p>
         </details>
         <details>
+          <summary>Có thể vừa xóa nhãn AI vừa nén ảnh không?</summary>
+          <p>Có. Bật “Nén ảnh luôn”, chọn định dạng WebP hoặc JPG, chất lượng và cạnh dài tối đa. Ảnh tải về vừa sạch thông tin ẩn vừa nhẹ hơn.</p>
+        </details>
+        <details>
           <summary>Ảnh chụp điện thoại có cần xóa thông tin không?</summary>
           <p>Nên xóa nếu ảnh chứa vị trí GPS, nhất là ảnh chụp tại nhà, cửa hàng, kho hàng trước khi đăng công khai.</p>
         </details>
@@ -152,6 +190,8 @@
         <a class="related__item" href="../chuyen-doi-anh/"><strong>Chuyển đổi &amp; nén ảnh</strong><span>Đổi JPG, PNG, WebP và giảm dung lượng ảnh hàng loạt</span></a>
         <a class="related__item" href="../anh-sang-pdf/"><strong>Ảnh sang PDF</strong><span>Ghép nhiều ảnh thành một file PDF</span></a>
         <a class="related__item" href="../chuyen-doi-video/"><strong>Chuyển đổi &amp; nén video</strong><span>Giảm dung lượng, đổi định dạng MP4, WebM, MOV</span></a>
+        <a class="related__item" href="../tao-ma-qr/"><strong>Tạo mã QR</strong><span>Link, WiFi, danh thiếp, chèn logo, tải PNG/SVG</span></a>
+        <a class="related__item" href="../tao-link-utm/"><strong>Tạo link UTM</strong><span>Gắn UTM, tạo link seeding hàng loạt, xuất CSV</span></a>
       </div>
 
       <div class="article-cta">

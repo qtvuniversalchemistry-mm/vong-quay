@@ -23,6 +23,12 @@
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>',
     shield:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>',
+    chevron:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
+    qr:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>',
+    link:
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>',
     menu:
       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
     wheel:
@@ -42,6 +48,7 @@
   var TOOLS = [
     {
       id: "vong-quay",
+      short: "Chọn ngẫu nhiên, minigame",
       name: "Vòng quay may mắn",
       nav: "Vòng quay",
       desc: "Nhập danh sách tên, quay ngẫu nhiên để chọn người trúng thưởng. Phù hợp minigame, livestream, sự kiện.",
@@ -51,6 +58,7 @@
     },
     {
       id: "chuyen-doi-anh",
+      short: "JPG, PNG, WebP, giảm dung lượng",
       name: "Chuyển đổi & nén ảnh",
       nav: "Nén ảnh",
       desc: "Đổi định dạng JPG, PNG, WebP và giảm dung lượng ảnh hàng loạt, tải về từng ảnh hoặc file .zip.",
@@ -60,6 +68,7 @@
     },
     {
       id: "anh-sang-pdf",
+      short: "Ghép nhiều ảnh thành PDF",
       name: "Ảnh sang PDF",
       nav: "Ảnh → PDF",
       desc: "Ghép nhiều ảnh thành một file PDF, sắp xếp thứ tự trang, chọn khổ giấy A4 và lề.",
@@ -69,6 +78,7 @@
     },
     {
       id: "chuyen-doi-video",
+      short: "Nén, đổi MP4, WebM, MOV",
       name: "Chuyển đổi & nén video",
       nav: "Video",
       desc: "Giảm dung lượng video, đổi sang MP4, WebM, MOV, hạ độ phân giải — xử lý ngay trên trình duyệt.",
@@ -78,11 +88,30 @@
     },
     {
       id: "xoa-nhan-ai",
+      short: "Gỡ C2PA, \"Made with AI\", GPS",
       name: "Xóa nhãn AI khỏi ảnh",
       nav: "Xóa nhãn AI",
       desc: "Xóa nhãn “AI info”, “Made with AI” (C2PA, XMP) và thông tin ẩn EXIF, GPS trong ảnh, giữ nguyên chất lượng.",
       href: "xoa-nhan-ai/",
       icon: "shield",
+      status: "live"
+    },
+    {
+      id: "tao-ma-qr",
+      short: "Link, WiFi, danh thiếp, có logo",
+      name: "Tạo mã QR",
+      desc: "Tạo mã QR cho link, WiFi, danh thiếp, email, điện thoại; chỉnh màu, chèn logo, tải PNG hoặc SVG.",
+      href: "tao-ma-qr/",
+      icon: "qr",
+      status: "live"
+    },
+    {
+      id: "tao-link-utm",
+      short: "Gắn UTM, tạo link seeding hàng loạt",
+      name: "Tạo link UTM",
+      desc: "Gắn UTM để đo hiệu quả từng kênh trong Google Analytics, tạo link riêng cho từng group seeding, xuất CSV.",
+      href: "tao-link-utm/",
+      icon: "link",
       status: "live"
     },
     {
@@ -167,12 +196,13 @@
     var host = document.querySelector("[data-site-header]");
     if (!host) return;
     var page = document.body.getAttribute("data-page") || "home";
-    var links = '<a href="' + HOME + '"' + (page === "home" ? ' aria-current="page"' : "") + ">Trang chủ</a>";
-    TOOLS.forEach(function (t) {
-      if (t.status !== "live") return;
-      links +=
-        '<a href="' + BASE + t.href + '"' + (page === t.id ? ' aria-current="page"' : "") + ">" + esc(t.nav || t.name) + "</a>";
-    });
+    var live = TOOLS.filter(function (t) { return t.status === "live"; });
+    var onTool = live.some(function (t) { return t.id === page; });
+    var menuItems = live.map(function (t) {
+      return '<a class="tools-menu__item" href="' + BASE + t.href + '"' + (page === t.id ? ' aria-current="page"' : "") + ">" +
+        '<span class="tools-menu__icon">' + (ICONS[t.icon] || ICONS.wheel) + "</span>" +
+        '<span><strong>' + esc(t.name) + "</strong><small>" + esc(t.short || t.desc) + "</small></span></a>";
+    }).join("");
 
     host.className = "site-header";
     host.innerHTML =
@@ -180,23 +210,25 @@
       '<a class="brand" href="' + HOME + '" aria-label="MAINN Media - Trang chủ công cụ">' +
       '<img class="brand__logo" src="' + BASE + 'assets/img/logo-mainn-media.png" alt="MAINN Media" width="371" height="96">' +
       '<span class="brand__divider"></span><span class="brand__sub">Bộ công cụ<br>miễn phí</span></a>' +
-      '<nav class="nav" aria-label="Điều hướng chính">' + links + "</nav>" +
+      '<nav class="nav" aria-label="Điều hướng chính">' +
+      '<a class="nav__home" href="' + HOME + '"' + (page === "home" ? ' aria-current="page"' : "") + ">Trang chủ</a>" +
+      '<button class="nav__tools" type="button" data-menu-toggle aria-expanded="false" aria-controls="toolsMenu"' + (onTool ? ' data-active="true"' : "") + ">" +
+      "Công cụ " + ICONS.chevron + "</button>" +
+      "</nav>" +
       '<div class="header-actions">' +
       '<button class="btn icon-btn theme-toggle" type="button" data-theme-toggle></button>' +
-      '<button class="btn icon-btn menu-btn" type="button" data-menu-toggle aria-label="Mở menu công cụ" aria-expanded="false">' + ICONS.menu + "</button>" +
       '<a class="btn btn--dark btn--sm header-cta" href="https://mainnmedia.com" target="_blank" rel="noopener">mainnmedia.com ' + ICONS.external + "</a>" +
-      "</div></div>";
+      "</div></div>" +
+      '<div class="tools-menu" id="toolsMenu" hidden><div class="container"><div class="tools-menu__grid">' + menuItems + "</div></div></div>";
 
-    var menuBtn = host.querySelector("[data-menu-toggle]"), nav = host.querySelector(".nav");
-    menuBtn.addEventListener("click", function () {
-      var open = nav.classList.toggle("is-open");
-      menuBtn.setAttribute("aria-expanded", open);
-    });
-    document.addEventListener("click", function (e) {
-      if (nav.classList.contains("is-open") && !host.contains(e.target)) {
-        nav.classList.remove("is-open"); menuBtn.setAttribute("aria-expanded", "false");
-      }
-    });
+    var menuBtn = host.querySelector("[data-menu-toggle]"), menu = host.querySelector("#toolsMenu");
+    function setMenu(open) {
+      menu.hidden = !open;
+      menuBtn.setAttribute("aria-expanded", String(open));
+    }
+    menuBtn.addEventListener("click", function () { setMenu(menu.hidden); });
+    document.addEventListener("click", function (e) { if (!menu.hidden && !host.contains(e.target)) setMenu(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !menu.hidden) { setMenu(false); menuBtn.focus(); } });
 
     var toggle = host.querySelector("[data-theme-toggle]");
     function paint() {
@@ -227,7 +259,11 @@
       '<div class="site-footer__brand"><img src="' + BASE + 'assets/img/logo-mainn-media.png" alt="MAINN Media" width="371" height="96">' +
       '<div>Chuyên gia marketing đồng hành cùng doanh nghiệp trên Facebook, TikTok, Shopee</div></div>' +
       "<div>© " + new Date().getFullYear() + ' MAINN Media · <a href="https://mainnmedia.com" target="_blank" rel="noopener">mainnmedia.com</a></div>' +
-      "</div>";
+      "</div>" +
+      '<div class="container site-footer__tools"><span>Công cụ miễn phí:</span>' +
+      TOOLS.filter(function (t) { return t.status === "live"; }).map(function (t) {
+        return '<a href="' + BASE + t.href + '">' + esc(t.name) + "</a>";
+      }).join("") + "</div>";
   }
 
   /* ---------- Lưới công cụ ở trang chủ ---------- */
