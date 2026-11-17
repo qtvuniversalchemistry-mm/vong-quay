@@ -22,6 +22,7 @@
 
   <main>
     <section class="hero">
+      <div class="hero__fx" id="heroFx" aria-hidden="true"></div>
       <div class="container"><div class="hero__inner">
         <span class="eyebrow">Miễn phí · Không cần đăng nhập</span>
         <h1>Bộ công cụ tiện ích từ <em>MAINN Media</em></h1>
@@ -62,5 +63,26 @@
   </main>
 
   <footer data-site-footer></footer>
+
+  <script src="../assets/js/magic-rings.js" defer></script>
+  <script>
+    // Hiệu ứng vòng sáng MagicRings ở khu vực đầu trang chủ (màu thương hiệu MAINN Media)
+    window.addEventListener("DOMContentLoaded", function () {
+      var host = document.getElementById("heroFx");
+      if (!host || !window.MagicRings) return;
+      window.MagicRings.mount(host, {
+        color: "#0099e5",
+        colorTwo: "#00f1a7",
+        motion: "pulse",
+        ringCount: 6,
+        speed: 1,
+        lineThickness: 2,
+        glow: 1,
+        hoverScale: 1.2,
+        clickBurst: true,
+        theme: "dark" // nền khu vực đầu trang luôn là xanh navy đậm
+      });
+    });
+  </script>
 </body>
 </html>

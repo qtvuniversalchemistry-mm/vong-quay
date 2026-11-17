@@ -89,6 +89,7 @@ assets/js/site.js       Header, footer, danh sách công cụ, nút Sáng/Tối
 assets/js/wheel.js      Logic vòng quay
 assets/js/filekit.js    Hàm dùng chung cho công cụ file (kéo thả, tải về, nén zip)
 assets/js/tool-*.js     Logic từng công cụ ảnh / PDF / video
+assets/js/magic-rings.js Hiệu ứng vòng sáng ở đầu trang chủ (chuyển từ React Bits sang JS thuần; chỉnh màu trong home/index.html)
 assets/vendor/          Thư viện pdf-lib, fflate, Mediabunny
 assets/img/             Logo, favicon
 ```
